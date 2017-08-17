@@ -1,0 +1,9 @@
+NAME : ch4.opt.tour
+COMMENT : Length 4
+TYPE : TOUR
+DIMENSION : 4
+TOUR_SECTION
+1
+2
+4
+3
