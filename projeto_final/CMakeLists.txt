@@ -12,8 +12,8 @@ endif()
 
 
 add_subdirectory(googletest)
-
-add_executable(main hello_openmp.cpp)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+add_executable(main main.cpp City.cpp Path.cpp)
 
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})

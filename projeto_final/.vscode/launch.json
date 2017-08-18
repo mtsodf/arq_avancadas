@@ -1,7 +1,14 @@
 {
     "version": "0.2.0",
     "configurations": [
-
+{
+    "name": "(gdb) Attach",
+    "type": "cppdbg",
+    "request": "launch",
+    "cwd": "${workspaceRoot}/build",
+    "program": "${workspaceRoot}/build/main",
+    "MIMode": "gdb"
+},
         {
             "name": "(lldb) Launch",
             "type": "cppdbg",
@@ -11,8 +18,9 @@
             "stopAtEntry": false,
             "cwd": "${workspaceRoot}/build",
             "environment": [],
-            "externalConsole": true,
-            "MIMode": "lldb"
+            "externalConsole": false,
+            "MIMode": "lldb",
+            "miDebuggerPath": "/usr/bin/gdb"
         }
     ]
 }

@@ -1,12 +1,48 @@
 #include <iostream>
+#include <vector>
+#include "Read.h"
+#include "Path.h"
+#include "City.h"
+
 
 using namespace std;
 
+void distributeCities(float*, float*);
+
+
+
 int main(){
-    int a = 10;
+    float *xs, *ys;
+    int n;using namespace std;
+    ler_cidades(&n, &xs, &ys);
 
-    a = a+1;
-    cout << "Hello World! \n";
 
+    cout << "Valores das cidades" << endl;
+
+    vector<City*> cities;
+    cities.reserve(n);
+
+    distributeCities(xs, ys);
+
+    for (size_t i = 0; i < n; i++)
+    {
+        printf("\t%d: x = %f y = %f\n", i, xs[i], ys[i]);
+        cities.push_back(new City(xs[i], ys[i], i));
+
+        cities[i]->print();
+    }
+
+
+    Path* path = new Path(cities);
+
+    printf("\n\nCusto do caminho inicial %f\n", path->cost);
+
+    free(xs); free(ys);
     return 0;
+}
+
+
+void distributeCities(float *xs, float *ys){
+    //@TODO adicionar codigo MPI para distribuir os valores
+    return;
 }
