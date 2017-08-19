@@ -15,9 +15,10 @@ float rand_float(){
     return (float)rand()/(float)RAND_MAX;
 }
 
-AnnealingStealing::AnnealingStealing(Path *path, float temperature){
+AnnealingStealing::AnnealingStealing(Path *path, float temperature, float alpha){
     this->path = path;
     this->temperature = temperature;
+    this->alpha = alpha;
 }
 
 float AnnealingStealing::trySwap(){
@@ -50,19 +51,22 @@ float AnnealingStealing::trySwap(){
 
 
 float AnnealingStealing::updateTemperature(){
-    temperature *= 0.9;
+    temperature *= alpha;
 }
 
+
+
 void AnnealingStealing::solve(){
+    solve(false);
+}
+
+void AnnealingStealing::solve(bool log){
 
     int iters=0;
     do{
-        printf("Temperatura atual %f. Custo: %f\n", this->temperature, path->cost);
+        if(log) printf("Temperatura atual %f. Custo: %f\n", this->temperature, path->cost);
         trySwap();
         iters++;
-        //if(iters%100 == 0){
-
-        //}
     } while(temperature > 1e-6);
 
 }

@@ -6,10 +6,12 @@
 class AnnealingStealing{
 public:
     float temperature;
+    float alpha;
     float updateTemperature();
     float trySwap();
     Path  *path;
-    AnnealingStealing(Path*, float);
+    AnnealingStealing(Path*, float, float);
+    void solve(bool);
     void solve();
 };
 
