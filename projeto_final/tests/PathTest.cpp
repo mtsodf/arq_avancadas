@@ -4,6 +4,7 @@
 #include "gtest/gtest.h"
 #include <vector>
 #include <math.h>
+#include "AnnealingStealing.h"
 
 using namespace std;
 
@@ -18,7 +19,7 @@ TEST(City, CityDistance){
 
   for (size_t i = 0; i < n; i++)
   {
-    cities[i] = new City(xs[i], ys[i], n);
+    cities[i] = new City(xs[i], ys[i], i);
   }
 
   EXPECT_NEAR(cities[0]->distance(cities[1]), 1.0, 1e-6);
@@ -50,8 +51,14 @@ TEST(Path, PathSize){
     printf("Tamanho do caminho %d\n", cities.size());
     Path* path = new Path(cities);
 
+
     EXPECT_EQ(path->size, 4);
 
     EXPECT_NEAR(path->cost, 2 + 2*sqrt(2), 1e-6);
+
+    AnnealingStealing* ann = new AnnealingStealing(path, 100.0);
+
+
+    ann->solve();
 
 }

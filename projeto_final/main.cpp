@@ -1,8 +1,10 @@
 #include <iostream>
 #include <vector>
+#include <stdlib.h>
 #include "Read.h"
 #include "Path.h"
 #include "City.h"
+#include "AnnealingStealing.h"
 
 
 using namespace std;
@@ -14,7 +16,7 @@ void distributeCities(float*, float*);
 int main(){
     float *xs, *ys;
     int n;
-    ler_cidades("../../ALL_tsp/ch4.tsp", &n, &xs, &ys);
+    ler_cidades("../ALL_tsp/ch4.tsp", &n, &xs, &ys);
 
 
     cout << "Valores das cidades" << endl;
@@ -33,7 +35,7 @@ int main(){
     }
 
 
-    Path* path = new Path(&cities);
+    Path* path = new Path(cities);
 
 
 
@@ -48,3 +50,5 @@ void distributeCities(float *xs, float *ys){
     //@TODO adicionar codigo MPI para distribuir os valores
     return;
 }
+
+

@@ -29,7 +29,7 @@ float Path::distNext(int i){
 }
 
 float Path::distPrevious(int i){
-    return cities[i]->distance(cities[(i-1)%size]);
+    return cities[i]->distance(cities[(i+size-1)%size]);
 }
 
 float Path::swap(int i, int j){
@@ -53,3 +53,4 @@ float Path::swap(int i, int j){
 
     return cost;
 }
+
