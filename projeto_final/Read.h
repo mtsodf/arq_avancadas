@@ -5,7 +5,7 @@
 #include <fstream>
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <string>
 
 using namespace std;
 
@@ -17,29 +17,27 @@ void ler_cidades(char* file, int *n, float **xs, float **ys){
     string buffer;
     entrada = fopen(file, "r");
 
-    fgets(buffer1, 300, entrada);
-
-    sscanf(buffer1, "%s %s\n", buffer2, name);
-
-    printf("Nome do caso: %s\n", name);
 
     fgets(buffer1, 300, entrada);
-    fgets(buffer1, 300, entrada);
+    buffer.assign(buffer1);
+    int find = buffer.find("NODE_COORD_SECTION");
+    while(find < 0){
 
-    cout << buffer1 << "\n";
+        find = buffer.find("DIMENSION");
+        if(find >= 0){
+            sscanf(&buffer[0], "%s %d", buffer2, n);
+        }
 
-    fgets(buffer1, 300, entrada);
-    sscanf(buffer1, "%s %d", buffer2, n);
 
-    printf("Quantidade de cidades: %d\n", *n);
+        fgets(buffer1, 300, entrada);
+        buffer.assign(buffer1);
+        find = buffer.find("NODE_COORD_SECTION");
+    }
+
 
     *xs = (float*) malloc((*n)*sizeof(float));
     *ys = (float*) malloc((*n)*sizeof(float));
 
-    fgets(buffer1, 300, entrada);
-    fgets(buffer1, 300, entrada);
-    fgets(buffer1, 300, entrada);
-    fgets(buffer1, 300, entrada);
 
     float x, y;
 
