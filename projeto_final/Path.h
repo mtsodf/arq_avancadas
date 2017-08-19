@@ -11,12 +11,13 @@ using namespace std;
 class Path{
     public:
         int size;
-        vector<City*> cities;
+        vector<City*> *cities;
         float cost;
-        Path(vector<City*>);
+        Path(vector<City*> *);
         float swap(int, int j);
         float distNext(int);
         float distPrevious(int);
+        ~Path();
 
     private:
         void initCost();

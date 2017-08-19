@@ -12,10 +12,16 @@ endif()
 
 
 add_subdirectory(googletest)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR})
-add_executable(main main.cpp City.cpp Path.cpp)
 
+
+add_library(TSP_LIB  City.cpp Path.cpp)
+
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+
+add_executable(main main.cpp)
+target_link_libraries(main TSP_LIB)
+
+add_subdirectory(tests)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
-

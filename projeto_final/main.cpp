@@ -13,8 +13,8 @@ void distributeCities(float*, float*);
 
 int main(){
     float *xs, *ys;
-    int n;using namespace std;
-    ler_cidades(&n, &xs, &ys);
+    int n;
+    ler_cidades("../../ALL_tsp/ch4.tsp", &n, &xs, &ys);
 
 
     cout << "Valores das cidades" << endl;
@@ -34,6 +34,8 @@ int main(){
 
 
     Path* path = new Path(cities);
+
+
 
     printf("\n\nCusto do caminho inicial %f\n", path->cost);
 

@@ -9,15 +9,13 @@
 
 using namespace std;
 
-void ler_cidades(int *n, float **xs, float **ys){
+void ler_cidades(char* file, int *n, float **xs, float **ys){
 
     FILE* entrada;
 
     char buffer1[300], buffer2[300], name[50];
     string buffer;
-    entrada = fopen("../ALL_tsp/ch4.tsp", "r");
-
-    ifstream tsp_file ("../ALL_tsp/ch4.tsp");
+    entrada = fopen(file, "r");
 
     fgets(buffer1, 300, entrada);
 
