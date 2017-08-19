@@ -33,7 +33,7 @@ int main(){
     }
 
 
-    Path* path = new Path(cities);
+    Path* path = new Path(&cities);
 
 
 

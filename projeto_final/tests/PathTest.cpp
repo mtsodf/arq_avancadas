@@ -43,12 +43,12 @@ TEST(Path, PathSize){
 
     for (size_t i = 0; i < n; i++)
     {
-      cities[i] = new City(xs[i], ys[i], n);
+      cities.push_back(new City(xs[i], ys[i], n));
     }
 
 
-    printf("Tamanho do caminho %d", cities.size());
-    Path* path = new Path(&cities);
+    printf("Tamanho do caminho %d\n", cities.size());
+    Path* path = new Path(cities);
 
     EXPECT_EQ(path->size, 4);
 
