@@ -115,6 +115,32 @@ TEST(TSP, AnnealingStealing_48){
     cities.push_back(new City(xs[i], ys[i], n));
   }
 
+  vector<City*> cities_sol;
+
+  cities_sol.reserve(n);
+
+  FILE* sol;
+  char buffer1[300];
+
+  sol = fopen("../../ALL_tsp/att48.opt.tour", "r");
+
+  fgets(buffer1, 300, sol);
+  fgets(buffer1, 300, sol);
+  fgets(buffer1, 300, sol);
+  fgets(buffer1, 300, sol);
+  fgets(buffer1, 300, sol);
+
+  int b;
+  for(int i = 0; i < n; i++){
+    fscanf(sol, "%d", &b);
+    printf("%d\n", b);
+    cities_sol.push_back(cities[b-1]);
+  }
+
+  Path *path_sol = new Path(cities_sol);
+
+  fclose(sol);
+
 
   printf("Tamanho do caminho %d\n", cities.size());
   Path* path = new Path(cities);
@@ -124,15 +150,13 @@ TEST(TSP, AnnealingStealing_48){
 
   //EXPECT_NEAR(path->cost, 2 + 2*sqrt(2), 1e-6);
 
-  AnnealingStealing* ann = new AnnealingStealing(path, 100.0, 0.9);
+  AnnealingStealing* ann = new AnnealingStealing(path, 1000.0, 0.99);
 
+  ann->solve(false);
 
-  ann->solve(true);
-
+  printf("Solucao %f\n", path_sol->cost);
 
   free(xs);
   free(ys);
-
-
 
 }
