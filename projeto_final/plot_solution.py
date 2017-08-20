@@ -1,4 +1,8 @@
 from math import sqrt
+import matplotlib.pyplot as plt
+import numpy as np
+
+plt.style.use('ggplot')
 f = open("./ALL_tsp/att48.tsp")
 
 ler_nos = False
@@ -44,7 +48,10 @@ for line in f:
             sol.append(int(line)-1)
 
 
-cost = 0.0
+cost_sol = 0.0
+cost_init = 0.0
+xsol = []
+ysol = []
 for i in range(n):
     i1 = sol[i]
     i2 = sol[(i+1)%n]
@@ -54,9 +61,31 @@ for i in range(n):
     x2 = xs[i2]
     y2 = ys[i2]
 
-    cost += sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1))
+    cost_sol += sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1))
 
+    xsol.append(xs[i1])
+    ysol.append(ys[i1])
+
+    x1 = xs[i]
+    y1 = ys[i]
+
+    x2 = xs[(i+1)%n]
+    y2 = ys[(i+1)%n]
+    cost_init += sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1))
+
+xsol.append(xsol[0])
+ysol.append(ysol[0])
 
 f.close()
 
-print "Custo ", cost
+
+
+fig, ax = plt.subplots()
+
+ax.scatter(xs,ys)
+ax.scatter(xs[0],ys[0])
+ax.plot(xsol, ysol)
+plt.show()
+
+print "Custo inicial", cost_init
+print "Custo ", cost_sol
