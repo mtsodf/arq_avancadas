@@ -74,7 +74,7 @@ void AnnealingStealing::solve(){
 
 void AnnealingStealing::solve(bool log){
     int iters;
-    solve(log, 0, 1e20);
+    solve(log, 0, 2e9);
 }
 
 void AnnealingStealing::solve(bool log, int min_iters, int max_iters){
