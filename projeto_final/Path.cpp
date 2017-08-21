@@ -21,7 +21,6 @@ void Path::initCost(){
         cost+= cities[i]->distance(cities[(i+1)%size]);
     }
 
-    printf("Preco calculado %f\n\n", cost);
 }
 
 float Path::distNext(int i){
@@ -54,3 +53,23 @@ float Path::swap(int i, int j){
     return cost;
 }
 
+float Path::swapTotal(int i, int j){
+    City *aux;
+
+    if(i > j){
+        int a = i;
+        i = j;
+        j = a;
+    }
+
+    for (size_t k = 0; k <= (j-i)/2; k++)
+    {
+        aux = cities[i+k];
+        cities[i+k] = cities[j-k];
+        cities[j-k] = aux;
+    }
+
+    initCost();
+
+    return cost;
+}

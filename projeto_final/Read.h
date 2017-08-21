@@ -40,14 +40,54 @@ void ler_cidades(char* file, int *n, float **xs, float **ys){
 
 
     float x, y;
-
+    int ind;
     for(int i = 0; i < *n; i++)
     {
-        fscanf(entrada, "%f %f", &x, &y);
-        (*xs)[i] = x; (*ys)[i] = y;
+        fscanf(entrada, "%d %f %f", &ind, &x, &y);
+        (*xs)[ind-1] = x; (*ys)[ind-1] = y;
     }
 
     fclose(entrada);
 }
+
+vector<City*> createCityVector(char* file){
+
+    int n;
+    float *xs, *ys;
+
+    ler_cidades(file, &n, &xs, &ys);
+
+    vector<City*> cities(n);
+
+    for (size_t i = 0; i < n; i++)
+    {
+        cities[i] = new City(xs[i], ys[i], i);
+    }
+
+    return cities;
+
+}
+
+vector<City*> readSolution(char* file, vector<City*> cities, int n){
+    vector<City*> cities_sol(n);
+
+    FILE* sol;
+    char buffer1[300];
+
+    sol = fopen(file, "r");
+
+    for(int i = 0; i < 5; i++) fgets(buffer1, 300, sol);
+
+    int b;
+    for(int i = 0; i < n; i++){
+        fscanf(sol, "%d", &b);
+         cities_sol[i] = cities[b-1];
+      }
+
+    fclose(sol);
+
+    return cities_sol;
+}
+
 
 #endif

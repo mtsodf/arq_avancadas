@@ -15,6 +15,7 @@ class Path{
         float cost;
         Path(vector<City*>);
         float swap(int, int j);
+        float swapTotal(int, int j);
         float distNext(int);
         float distPrevious(int);
         ~Path();
