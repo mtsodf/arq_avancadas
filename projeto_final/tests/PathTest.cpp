@@ -95,3 +95,34 @@ TEST(TSP, AnnealingStealing_48){
   printf("Solucao %f\n", path_sol->cost);
 
 }
+
+
+
+
+TEST(TSP, AnnealingStealing_100){
+  //Teste do polimorfismo
+
+  vector<City*> cities = createCityVector("../../ALL_tsp/rd100.tsp");
+  EXPECT_EQ(cities.size(), 100);
+
+  EXPECT_NEAR(cities[0]->x, 1.43775e+02, 1e-5);
+  EXPECT_NEAR(cities[0]->y, 8.62630e+02, 1e-5);
+
+  EXPECT_NEAR(cities[99]->x, 4.83637e+02, 1e-5);
+  EXPECT_NEAR(cities[99]->y, 1.16325e+02, 1e-5);
+
+  printf("CHEGOU AQUI!!\n");
+  vector<City*> cities_sol = readSolution("../../ALL_tsp/rd100.opt.tour", cities, 100);
+
+  Path *path_sol = new Path(cities_sol);
+
+  printf("Tamanho do caminho %d\n", cities.size());
+  Path* path = new Path(cities);
+
+  AnnealingStealing* ann = new AnnealingStealing(path, 1000.0, 0.997, 1e-10);
+
+  ann->solve(true, 10000, 30000);
+  printf("Solucao Calc %f\n", path->cost);
+  printf("Solucao %f\n", path_sol->cost);
+
+}
