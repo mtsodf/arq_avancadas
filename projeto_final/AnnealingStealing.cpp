@@ -82,12 +82,14 @@ void AnnealingStealing::solve(bool log, int min_iters, int max_iters){
     if(log) out = fopen("out.txt", "w");
     int iters=0;
     do{
-        if(log && iters%100 == 0) fprintf(out, "%d %e %e\n", iters, path->cost, temperature);
+        if(log && iters%100 == 0) fprintf(out, "%8d %e %e\n", iters, path->cost, temperature);
         trySwap();
         iters++;
     } while((temperature > limit || iters < min_iters) && iters < max_iters);
 
+    if(log) fclose(out);
     if(log) PrintPath("path.txt", path);
+
 
     printf("Numero de iteracoes %d\n", iters);
 }
