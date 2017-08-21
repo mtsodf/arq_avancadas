@@ -73,10 +73,19 @@ vector<City*> readSolution(char* file, vector<City*> cities, int n){
 
     FILE* sol;
     char buffer1[300];
+    string buffer;
 
     sol = fopen(file, "r");
 
-    for(int i = 0; i < 5; i++) fgets(buffer1, 300, sol);
+    fgets(buffer1, 300, sol);
+    buffer.assign(buffer1);
+    int find = buffer.find("TOUR_SECTION");
+    while(find < 0){
+        fgets(buffer1, 300, sol);
+        buffer.assign(buffer1);
+        find = buffer.find("TOUR_SECTION");
+    }
+
 
     int b;
     for(int i = 0; i < n; i++){
