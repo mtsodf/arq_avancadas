@@ -102,7 +102,7 @@ axis[0,0].plot(iters, costs)
 axis[0,1].plot(iters, temperatures)
 
 
-plot_sol
+
 f = open("path.txt")
 xs = []
 ys = []
