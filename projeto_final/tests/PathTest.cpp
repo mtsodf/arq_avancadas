@@ -40,6 +40,13 @@ TEST(Path, PathSize){
     EXPECT_EQ(path->size, 4);
     EXPECT_NEAR(path->cost, 2 + 2*sqrt(2), 1e-6);
 
+    Path* pathCopy = path->copy();
+    EXPECT_EQ(pathCopy->size, 4);
+    EXPECT_NEAR(pathCopy->cost, 2 + 2*sqrt(2), 1e-6);
+
+    pathCopy->swap(0,1);
+    EXPECT_NEAR(pathCopy->cost, 4, 1e-6);
+    EXPECT_NEAR(path->cost, 2 + 2*sqrt(2), 1e-6);
 
 }
 
@@ -119,10 +126,12 @@ TEST(TSP, AnnealingStealing_100){
   printf("Tamanho do caminho %d\n", cities.size());
   Path* path = new Path(cities);
 
-  AnnealingStealing* ann = new AnnealingStealing(path, 1000.0, 0.997, 1e-10);
+  AnnealingStealing* ann = new AnnealingStealing(path, 5000.0, 0.997, 1e-10);
 
-  ann->solve(true, 10000, 30000);
+  ann->solve(true, 2000, 1e9, 3);
   printf("Solucao Calc %f\n", path->cost);
   printf("Solucao %f\n", path_sol->cost);
+
+
 
 }
