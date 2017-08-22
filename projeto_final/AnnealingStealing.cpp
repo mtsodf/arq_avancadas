@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <cmath>
+#include <omp.h>
 
 using namespace std;
 
@@ -78,14 +79,34 @@ void AnnealingStealing::solve(bool log){
 }
 
 void AnnealingStealing::solve(bool log, int min_iters, int max_iters){
+    solve(log, min_iters, max_iters, 1);
+}
+
+void AnnealingStealing::solveOpenMp(bool log, int min_iters, int max_iters, int outer_iters){
+    #pragma omp parallel
+    {
+        printf("Thread %d\n", omp_get_num_threads();
+    }\
+
+}
+
+void AnnealingStealing::solve(bool log, int min_iters, int max_iters, int outer_iters){
     FILE* out;
     if(log) out = fopen("out.txt", "w");
     int iters=0;
-    do{
-        if(log && iters%100 == 0) fprintf(out, "%8d %e %e\n", iters, path->cost, temperature);
-        trySwap();
-        iters++;
-    } while((temperature > limit || iters < min_iters) && iters < max_iters);
+
+    float initTemperature = this->temperature;
+
+    for (int i = 0; i < outer_iters; i++)
+    {
+        this->temperature = initTemperature*pow(0.8, i);
+        do{
+            if(log && iters%1 == 0) fprintf(out, "%8d %e %e\n", iters, path->cost, temperature);
+            trySwap();
+            iters++;
+        } while((temperature > limit || iters < min_iters) && iters < max_iters);
+    }
+
 
     if(log) fclose(out);
     if(log) PrintPath("path.txt", path);

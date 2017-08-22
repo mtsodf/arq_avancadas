@@ -12,6 +12,7 @@ public:
     float trySwap();
     Path  *path;
     AnnealingStealing(Path*, float, float, float);
+    void solve(bool, int, int, int);
     void solve(bool, int, int);
     void solve(bool);
     void solve();
