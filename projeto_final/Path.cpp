@@ -31,6 +31,17 @@ float Path::distPrevious(int i){
     return cities[i]->distance(cities[(i+size-1)%size]);
 }
 
+Path* Path::copy(){
+    vector<City*> cities(this->size);
+
+    for (size_t i = 0; i < this->size; i++)
+    {
+        cities[i] = this->cities[i];
+    }
+
+    return new Path(cities);
+}
+
 float Path::swap(int i, int j){
     City *aux;
 

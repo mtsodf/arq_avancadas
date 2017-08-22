@@ -18,6 +18,7 @@ class Path{
         float swapTotal(int, int j);
         float distNext(int);
         float distPrevious(int);
+        Path * copy();
         ~Path();
 
     private:
