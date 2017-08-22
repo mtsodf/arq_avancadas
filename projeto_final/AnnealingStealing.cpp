@@ -86,7 +86,7 @@ void AnnealingStealing::solveOpenMp(bool log, int min_iters, int max_iters, int 
     #pragma omp parallel
     {
         printf("Thread %d\n", omp_get_num_threads();
-    }\
+    }
 
 }
 
