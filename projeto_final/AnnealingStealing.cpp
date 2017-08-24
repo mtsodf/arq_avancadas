@@ -86,6 +86,7 @@ void AnnealingStealing::solveOpenMp(bool log, int min_iters, int max_iters, int 
     #pragma omp parallel
     {
         printf("Thread %d\n", omp_get_num_threads());
+
     }
 
 }
@@ -110,9 +111,7 @@ void AnnealingStealing::solve(bool log, int min_iters, int max_iters, int outer_
 
     if(log) fclose(out);
     if(log) PrintPath("path.txt", path);
-
-
-    printf("Numero de iteracoes %d\n", iters);
+    // if(log) printf("Numero de iteracoes %d\n", iters);
 }
 
 
