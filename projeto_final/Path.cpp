@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "Path.h"
 
 Path::~Path(){
@@ -10,7 +11,7 @@ Path::Path(vector<City*> cities){
     this->size = cities.size();
     initCost();
 
-    printf("Criando caminho de tamanho %d e custo inicial %f\n", this->size, this->cost);
+    // printf("Criando caminho de tamanho %d e custo inicial %f\n", this->size, this->cost);
 }
 
 void Path::initCost(){
@@ -83,4 +84,18 @@ float Path::swapTotal(int i, int j){
     initCost();
 
     return cost;
+}
+
+void Path::scramble(){
+    City *aux;
+    int j;
+    for(int i = 1; i < this->size;i++){
+        j = rand() % (i+1);
+        printf("Trocando %d com %d\n", i, j);
+
+        aux = this->cities[i];
+        this->cities[i] = this->cities[j];
+        this->cities[j] = aux;
+    }
+    initCost();
 }
