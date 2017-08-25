@@ -3,6 +3,7 @@
 #include "Read.h"
 #include "gtest/gtest.h"
 #include <vector>
+#include <stdlib.h>
 #include <math.h>
 #include <omp.h>
 #include "AnnealingStealing.h"
@@ -10,7 +11,30 @@
 using namespace std;
 
 
+bool trySwap(Path * path, float temperature){
+  int i, j;
+  float cost;
 
+  cost = path->cost;
+
+  sortSwap(&i, &j, path->size);
+
+  path->swapTotal(i,j);
+
+  float delta  = path->cost - cost;
+
+
+  if(delta < 0){
+      return true;
+  }else{
+      if(exp(-delta/temperature) > rand_float()){
+          return true;
+      } else{
+          path->swapTotal(i,j);
+          return true;
+      }
+  }
+}
 
 TEST(City, CityDistance){
   float *xs, *ys;
@@ -76,8 +100,7 @@ TEST(TSP, AnnealingStealing_4){
 }
 
 TEST(TSP, AnnealingStealing_48){
-  //Teste do polimorfismo
-  return;
+  ///return;
   vector<City*> cities = createCityVector("../../ALL_tsp/att48.tsp");
   EXPECT_EQ(cities.size(), 48);
   EXPECT_NEAR(cities[0]->x, 6734, 1e-6);
@@ -102,11 +125,12 @@ TEST(TSP, AnnealingStealing_48){
   printf("Solucao Calc %f\n", path->cost);
   printf("Solucao %f\n", path_sol->cost);
 
+  EXPECT_NEAR(path_sol->cost, path->cost, 1e-5);
+
 }
 
 TEST(TSP, AnnealingStealing_48_2){
-    //Teste do polimorfismo
-    return ;
+
     vector<City*> cities = createCityVector("../../ALL_tsp/att48.tsp");
     EXPECT_EQ(cities.size(), 48);
     EXPECT_NEAR(cities[0]->x, 6734, 1e-6);
@@ -136,7 +160,7 @@ TEST(TSP, AnnealingStealing_48_2){
 
 TEST(TSP, AnnealingStealing_100){
   //Teste do polimorfismo
-  return;
+
   vector<City*> cities = createCityVector("../../ALL_tsp/rd100.tsp");
   EXPECT_EQ(cities.size(), 100);
 
@@ -146,7 +170,6 @@ TEST(TSP, AnnealingStealing_100){
   EXPECT_NEAR(cities[99]->x, 4.83637e+02, 1e-5);
   EXPECT_NEAR(cities[99]->y, 1.16325e+02, 1e-5);
 
-  printf("CHEGOU AQUI!!\n");
   vector<City*> cities_sol = readSolution("../../ALL_tsp/rd100.opt.tour", cities, 100);
 
   Path *path_sol = new Path(cities_sol);
@@ -164,75 +187,29 @@ TEST(TSP, AnnealingStealing_100){
 
 
 TEST(TSP, AnnealingStealing_OPENMP){
-  //return;
-  vector<City*> cities = createCityVector("../../ALL_tsp/rd100.tsp");
-  EXPECT_EQ(cities.size(), 100);
 
-  EXPECT_NEAR(cities[0]->x, 1.43775e+02, 1e-5);
-  EXPECT_NEAR(cities[0]->y, 8.62630e+02, 1e-5);
+  vector<City*> cities = createCityVector("../../ALL_tsp/att48.tsp");
 
-  EXPECT_NEAR(cities[99]->x, 4.83637e+02, 1e-5);
-  EXPECT_NEAR(cities[99]->y, 1.16325e+02, 1e-5);
-
-  vector<City*> cities_sol = readSolution("../../ALL_tsp/rd100.opt.tour", cities, 100);
-
+  vector<City*> cities_sol = readSolution("../../ALL_tsp/att48.opt.tour", cities, cities.size());
 
   Path *path_sol = new Path(cities_sol);
 
-  vector<Path*> paths(4);
 
-  printf("Tamanho do caminho %d\n", cities.size());
-  #pragma omp parallel
-  {
-      int id = omp_get_thread_num();
-      paths[id] = new Path(cities);
-      paths[id]->scramble();
+  const int outer_iters = 1;
+  const int accepted_cost = 34000;
+  const int max_iters = 20000;
+  const int min_iters = 0;
+  float initTemperature = 100.0;
+  float alpha = 0.997;
+  float limit = 1e-10;
 
-      for(int i = 0; i < omp_get_num_threads(); i++){
-        if(i == id) printf("Meu id eh %d. O custo do caminho é %f\n", id, paths[id]->cost);
-        #pragma omp barrier
-      }
+  Path* path = new Path(cities);
 
-      #pragma omp barrier
+  AnnealingStealing* ann = new AnnealingStealing(path, initTemperature, alpha, limit);
 
-      for(int cont = 0; cont < 100; cont ++){
+  ann->solveOpenMp(false, min_iters, max_iters, outer_iters, accepted_cost);
 
-        if(id == 0) printf("Inicio da iteracao %d\n", cont);
-        for(int i = 0; i < omp_get_num_threads(); i++){
-            if(i == id) printf("Meu id eh %d. O custo do caminho é %f\n", id, paths[id]->cost);
-            #pragma omp barrier
-        }
-
-        AnnealingStealing* ann = new AnnealingStealing(paths[id], 100.0*pow(0.8, cont), 0.997, 1e-10);
-        ann->solve(true, 500, 20000, 1);
-
-        int minId=0; float min = paths[0]->cost;
-        if(id == 0) printf("Fim da iteracao %d\n", cont);
-        #pragma omp barrier
-        for(int i = 0; i < omp_get_num_threads(); i++){
-            if(i == id) printf("Meu id eh %d. O custo do caminho é %f\n", id, paths[id]->cost);
-
-            if(paths[i]->cost < min){
-                minId = i;
-                min = paths[id]->cost;
-            }
-            #pragma omp barrier
-        }
-        #pragma omp barrier
-        if(id != minId){
-            paths[id] = paths[minId]->copy();
-        }
-        #pragma omp barrier
-
-  }
-
-}
-
-
-  printf("Solucao Calc %f\n", paths[0]->cost);
   printf("Solucao %f\n", path_sol->cost);
-
-
 
 }
 
@@ -251,34 +228,6 @@ TEST(TSP, AnnealingStealing_2152){
 
 }
 
-TEST(TSP, AnnealingStealingParallel_48){
-
-
-  vector<City*> cities = createCityVector("../../ALL_tsp/rd100.tsp");
-  EXPECT_EQ(cities.size(), 100);
-
-  EXPECT_NEAR(cities[0]->x, 1.43775e+02, 1e-5);
-  EXPECT_NEAR(cities[0]->y, 8.62630e+02, 1e-5);
-
-  EXPECT_NEAR(cities[99]->x, 4.83637e+02, 1e-5);
-  EXPECT_NEAR(cities[99]->y, 1.16325e+02, 1e-5);
-
-  printf("CHEGOU AQUI!!\n");
-  vector<City*> cities_sol = readSolution("../../ALL_tsp/rd100.opt.tour", cities, 100);
-
-  Path *path_sol = new Path(cities_sol);
-
-  printf("Tamanho do caminho %d\n", cities.size());
-  Path* path = new Path(cities);
-
-  AnnealingStealing* ann = new AnnealingStealing(path, 5000.0, 0.997, 1e-10);
-
-  ann->solveOpenMp(true, 2000, 1e9, 3);
-
-  printf("Solucao Calc %f\n", path->cost);
-  printf("Solucao %f\n", path_sol->cost);
-
-}
 
 
 

@@ -34,7 +34,7 @@ AnnealingStealing::AnnealingStealing(Path *path, float temperature, float alpha,
     this->limit = limit;
 }
 
-float AnnealingStealing::trySwap(){
+float AnnealingStealing::trySwap(Path* path, float temperature){
     int i, j;
     float cost;
 
@@ -48,15 +48,12 @@ float AnnealingStealing::trySwap(){
 
 
     if(delta < 0){
-        updateTemperature();
         return path->cost;
     }else{
         if(exp(-delta/temperature) > rand_float()){
-            updateTemperature();
             return path->cost;
         } else{
             path->swapTotal(i,j);
-            updateTemperature();
             return path->cost;
         }
     }
@@ -66,8 +63,6 @@ float AnnealingStealing::trySwap(){
 float AnnealingStealing::updateTemperature(){
     temperature *= alpha;
 }
-
-
 
 void AnnealingStealing::solve(){
     solve(false);
@@ -82,36 +77,93 @@ void AnnealingStealing::solve(bool log, int min_iters, int max_iters){
     solve(log, min_iters, max_iters, 1);
 }
 
-void AnnealingStealing::solveOpenMp(bool log, int min_iters, int max_iters, int outer_iters){
-    #pragma omp parallel
+void AnnealingStealing::solve(bool log, int min_iters, int max_iters, int outer_iters){
+    solve(log, min_iters, max_iters, outer_iters, 0.0);
+}
+
+void AnnealingStealing::solveOpenMp(bool log, int min_iters, int max_iters, int outer_iters, float accepted_cost){
+    bool found_solution = false;
+
+    vector<Path*> paths(4);
+    int minId;
+    float min;
+    #pragma omp parallel shared(found_solution, min, minId)
     {
-        printf("Thread %d\n", omp_get_num_threads());
+
+        printf("Rodando com %d threads.\n", omp_get_num_threads());
+        int id = omp_get_thread_num();
+        paths[id] = path->copy();
+        paths[id]->scramble();
+
+        for(int i = 0; i < omp_get_num_threads(); i++){
+          if(i == id) printf("Meu id eh %d. O custo do caminho é %f\n", id, paths[id]->cost);
+          #pragma omp barrier
+        }
+
+        while(!found_solution){
+            solve(paths[id], false, min_iters, max_iters, outer_iters, accepted_cost, &found_solution);
+
+            if(paths[id]->cost < accepted_cost){
+                found_solution = true;
+            }
+
+
+            if( id == 0){
+                minId=0; min = paths[0]->cost;
+                for(int i = 0; i < omp_get_num_threads(); i++){
+                    if(paths[i]->cost < min){
+                        minId = i;
+                        min = paths[id]->cost;
+                    }
+                }
+            }
+
+            #pragma omp barrier
+            if(id != minId){
+                paths[id] = paths[minId]->copy();
+            }
+
+
+            printf("Menor custo %d %f\n", id, paths[id]->cost);
+        }
 
     }
 
+
+
 }
 
-void AnnealingStealing::solve(bool log, int min_iters, int max_iters, int outer_iters){
+void AnnealingStealing::solve(bool log, int min_iters, int max_iters, int outer_iters, float accepted_cost){
+    bool found = false;
+    solve(path, log, min_iters, max_iters, outer_iters, accepted_cost, &found);
+}
+
+bool AnnealingStealing::solve(Path* path, bool log, int min_iters, int max_iters, int outer_iters, float accepted_cost, bool *found){
     FILE* out;
     if(log) out = fopen("out.txt", "w");
     int iters=0;
 
     float initTemperature = this->temperature;
 
-    for (int i = 0; i < outer_iters; i++)
+    printf("Iniciando iteracao com %f\n", initTemperature);
+
+    for (int i = 0; i < outer_iters && path->cost > accepted_cost && !(*found) ; i++)
     {
-        this->temperature = initTemperature*pow(0.8, i);
+        initTemperature = (this->temperature)*pow(0.8,i);
         do{
             if(log && iters%1 == 0) fprintf(out, "%8d %e %e\n", iters, path->cost, temperature);
-            trySwap();
+            trySwap(path, initTemperature);
             iters++;
-        } while((temperature > limit || iters < min_iters) && iters < max_iters);
+            initTemperature = initTemperature * alpha;
+        } while((initTemperature > limit || iters < min_iters) && iters < max_iters && path->cost > accepted_cost && !(*found));
+
+
     }
-
-
+    printf("FECHANDO UMA ITERACAO ANNELING\n");
     if(log) fclose(out);
     if(log) PrintPath("path.txt", path);
-    // if(log) printf("Numero de iteracoes %d\n", iters);
+
+    return path->cost < accepted_cost;
 }
 
 
