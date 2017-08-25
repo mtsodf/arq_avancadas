@@ -91,7 +91,6 @@ void Path::scramble(){
     int j;
     for(int i = 1; i < this->size;i++){
         j = rand() % (i+1);
-        printf("Trocando %d com %d\n", i, j);
 
         aux = this->cities[i];
         this->cities[i] = this->cities[j];
