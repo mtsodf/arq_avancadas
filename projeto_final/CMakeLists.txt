@@ -14,7 +14,7 @@ endif()
 add_subdirectory(googletest)
 
 
-add_library(TSP_LIB  City.cpp Path.cpp AnnealingStealing.cpp)
+add_library(TSP_LIB  City.cpp Path.cpp AnnealingStealing.cpp rf-time.cc)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 

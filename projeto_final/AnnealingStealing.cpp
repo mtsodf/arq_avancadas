@@ -90,46 +90,46 @@ void AnnealingStealing::solveOpenMp(bool log, int min_iters, int max_iters, int 
     #pragma omp parallel shared(found_solution, min, minId)
     {
 
-        printf("Rodando com %d threads.\n", omp_get_num_threads());
         int id = omp_get_thread_num();
         paths[id] = path->copy();
         paths[id]->scramble();
 
-        for(int i = 0; i < omp_get_num_threads(); i++){
-          if(i == id) printf("Meu id eh %d. O custo do caminho é %f\n", id, paths[id]->cost);
-          #pragma omp barrier
-        }
-
         while(!found_solution){
+            #pragma omp barrier
             solve(paths[id], false, min_iters, max_iters, outer_iters, accepted_cost, &found_solution);
-
+            //printf("Saiu do loop id=%d\n", id);
             if(paths[id]->cost < accepted_cost){
+                //printf("ID %d encontrou a solucao. %f\n", id, paths[id]->cost);
                 found_solution = true;
             }
 
-
+            //printf("Cheguei na barreira 1 %d\n", id);
+            #pragma omp barrier
             if( id == 0){
                 minId=0; min = paths[0]->cost;
                 for(int i = 0; i < omp_get_num_threads(); i++){
                     if(paths[i]->cost < min){
                         minId = i;
-                        min = paths[id]->cost;
+                        min = paths[i]->cost;
                     }
                 }
             }
-
+            //printf("Cheguei na barreira 2 %d\n", id);
             #pragma omp barrier
             if(id != minId){
                 paths[id] = paths[minId]->copy();
             }
 
-
-            printf("Menor custo %d %f\n", id, paths[id]->cost);
         }
 
+        if(id == 0){
+            path = paths[minId];
+        }
+
+        //printf("SAIU DO LOOP id=%d\n", id);
+        //#pragma omp barrier
+
     }
-
-
 
 }
 
@@ -145,21 +145,21 @@ bool AnnealingStealing::solve(Path* path, bool log, int min_iters, int max_iters
 
     float initTemperature = this->temperature;
 
-    printf("Iniciando iteracao com %f\n", initTemperature);
-
+    if(log) printf("Iniciando iteracao com %f\n", initTemperature);
+    int id = omp_get_thread_num();
     for (int i = 0; i < outer_iters && path->cost > accepted_cost && !(*found) ; i++)
     {
         initTemperature = (this->temperature)*pow(0.8,i);
         do{
+            //if(iters%100==0) printf("Iteracao %d id=%d\n", iters, id);
             if(log && iters%1 == 0) fprintf(out, "%8d %e %e\n", iters, path->cost, temperature);
             trySwap(path, initTemperature);
             iters++;
             initTemperature = initTemperature * alpha;
         } while((initTemperature > limit || iters < min_iters) && iters < max_iters && path->cost > accepted_cost && !(*found));
-
-
     }
-    printf("FECHANDO UMA ITERACAO ANNELING\n");
+    //printf("Custo %f\n", path->cost);
+    if(log) printf("FECHANDO UMA ITERACAO ANNELING\n");
     if(log) fclose(out);
     if(log) PrintPath("path.txt", path);
 

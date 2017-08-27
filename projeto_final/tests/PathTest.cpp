@@ -7,6 +7,7 @@
 #include <math.h>
 #include <omp.h>
 #include "AnnealingStealing.h"
+#include "rf-time.h"
 
 using namespace std;
 
@@ -73,6 +74,8 @@ TEST(Path, PathSize){
     EXPECT_NEAR(pathCopy->cost, 4, 1e-6);
     EXPECT_NEAR(path->cost, 2 + 2*sqrt(2), 1e-6);
 
+    pathCopy->swapTotal(0,3);
+    EXPECT_NEAR(pathCopy->cost, 4, 1e-6);
 }
 
 
@@ -186,32 +189,6 @@ TEST(TSP, AnnealingStealing_100){
 }
 
 
-TEST(TSP, AnnealingStealing_OPENMP){
-
-  vector<City*> cities = createCityVector("../../ALL_tsp/att48.tsp");
-
-  vector<City*> cities_sol = readSolution("../../ALL_tsp/att48.opt.tour", cities, cities.size());
-
-  Path *path_sol = new Path(cities_sol);
-
-
-  const int outer_iters = 1;
-  const int accepted_cost = 34000;
-  const int max_iters = 20000;
-  const int min_iters = 0;
-  float initTemperature = 100.0;
-  float alpha = 0.997;
-  float limit = 1e-10;
-
-  Path* path = new Path(cities);
-
-  AnnealingStealing* ann = new AnnealingStealing(path, initTemperature, alpha, limit);
-
-  ann->solveOpenMp(false, min_iters, max_iters, outer_iters, accepted_cost);
-
-  printf("Solucao %f\n", path_sol->cost);
-
-}
 
 TEST(TSP, AnnealingStealing_2152){
   //Teste do polimorfismo

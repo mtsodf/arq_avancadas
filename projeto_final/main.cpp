@@ -1,48 +1,79 @@
-#include <iostream>
+#include "City.h"
+#include "Path.h"
+#include "Read.h"
 #include <vector>
 #include <stdlib.h>
-#include "Read.h"
-#include "Path.h"
-#include "City.h"
+#include <math.h>
+#include <omp.h>
 #include "AnnealingStealing.h"
-
+#include "rf-time.h"
 
 using namespace std;
 
-void distributeCities(float*, float*);
+int main(int argc,char *argv[]){
+
+            vector<City*> cities;
+            vector<City*> cities_sol;
+            srand (time(NULL));
+
+            int num_threads = 1;
+            if(argc>1){
+                num_threads = atoi(argv[1]);
+            }
+
+            int caso = 0;
+
+            if(argc>2) caso = atoi(argv[2]);
+
+            omp_set_num_threads(num_threads);
+
+            FILE* results = fopen("resultados.txt", "a+");
+
+            #pragma omp parallel
+            {
+                #pragma omp single
+                printf("Quantidade de threads %d\n", omp_get_num_threads());
+            }
+            if(caso == 0){
+                cities = createCityVector("../ALL_tsp/att48.tsp");
+                cities_sol = readSolution("../ALL_tsp/att48.opt.tour", cities, cities.size());
+            }
 
 
+            Path *path_sol = new Path(cities_sol);
 
-int main(){
-    float *xs, *ys;
-    int n;
-    ler_cidades("../ALL_tsp/ch4.tsp", &n, &xs, &ys);
+            const int outer_iters = 1;
+            const int accepted_cost = 34000;
+            const int max_iters = 20000;
+            const int min_iters = 0;
+            float initTemperature = 100.0;
+            float alpha = 0.997;
+            float limit = 1e-10;
 
+            double start, time;
 
-    cout << "Valores das cidades" << endl;
+            Path* path = new Path(cities);
 
-    vector<City*> cities;
-    cities.reserve(n);
+            AnnealingStealing* ann = new AnnealingStealing(path, initTemperature, alpha, limit);
 
-    distributeCities(xs, ys);
+            start = get_clock_msec();
 
-    for (size_t i = 0; i < n; i++)
-    {
-        printf("\t%d: x = %f y = %f\n", i, xs[i], ys[i]);
-        cities.push_back(new City(xs[i], ys[i], i));
+            ann->solveOpenMp(false, min_iters, max_iters, outer_iters, accepted_cost);
 
-        cities[i]->print();
-    }
+            time = get_clock_msec() - start;
 
+            printf("Menor custo %f\n", ann->path->cost);
 
-    Path* path = new Path(cities);
+            printf("Tempo para solucao: %lf\n", time);
 
+            printf("Solucao %f\n", path_sol->cost);
 
+            PrintPath("path.txt", ann->path);
 
-    printf("\n\nCusto do caminho inicial %f\n", path->cost);
+            fprintf(results, "%d %d %f %f\n", caso, num_threads, ann->path->cost, time);
+            fclose(results);
 
-    free(xs); free(ys);
-    return 0;
+            return 0;
 }
 
 

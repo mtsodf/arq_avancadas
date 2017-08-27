@@ -6,7 +6,7 @@
 void sortSwap(int *, int *, int);
 
 float rand_float();
-
+void PrintPath(char* filename, Path* path);
 class AnnealingStealing{
 public:
     float temperature;
