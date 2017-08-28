@@ -7,6 +7,7 @@
 #include <math.h>
 #include <omp.h>
 #include "AnnealingStealing.h"
+#include "Opt2.h"
 #include "rf-time.h"
 
 using namespace std;
@@ -52,6 +53,46 @@ TEST(City, CityDistance){
   EXPECT_NEAR(cities[3]->distance(cities[0]), sqrt(2.0), 1e-6);
 
 }
+
+TEST(Path, totalSwap){
+
+  float *xs, *ys;
+  int n;
+
+  vector<City*> cities = createCityVector("../../ALL_tsp/ch6.tsp");
+  EXPECT_EQ(cities.size(), 6);
+
+
+  EXPECT_NEAR(cities[0]->distance(cities[1]), 2.0, 1e-6);
+  EXPECT_NEAR(cities[1]->distance(cities[0]), 2.0, 1e-6);
+
+  Path * path = new Path(cities);
+  EXPECT_EQ(path->size, 6);
+
+  EXPECT_NEAR(path->dist(0,1), 2.0, 1e-6);
+  EXPECT_NEAR(path->dist(1,2), 2.0*sqrt(2), 1e-6);
+  EXPECT_NEAR(path->dist(2,3), 2.0, 1e-6);
+  EXPECT_NEAR(path->dist(3,4), 2.0, 1e-6);
+  EXPECT_NEAR(path->dist(4,5), 2.0*sqrt(2), 1e-6);
+  EXPECT_NEAR(path->dist(5,0), 2.0, 1e-6);
+
+  EXPECT_NEAR(path->cost, 8 + 4*sqrt(2), 1e-6);
+
+  int mini, minj; float minchange;
+  findMiniMinj(path, &mini, &minj, &minchange);
+
+  EXPECT_EQ(1, mini);
+  EXPECT_EQ(4, minj);
+
+  path->swapTotal(mini+1, minj);
+
+  EXPECT_NEAR(-minchange, 4*(sqrt(2)-1), 1e-6);
+  EXPECT_NEAR(path->cost, 8 + 4*sqrt(2) + minchange, 1e-6);
+  EXPECT_NEAR(path->cost, 12, 1e-6);
+
+}
+
+
 
 TEST(Path, PathSize){
     float *xs, *ys;
@@ -204,29 +245,3 @@ TEST(TSP, AnnealingStealing_2152){
   printf("Solucao Calc %f\n", path->cost);
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

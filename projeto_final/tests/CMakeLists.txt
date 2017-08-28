@@ -7,3 +7,7 @@ add_test(PathTest ./PathTest)
 
 add_executable(OpenMP OpenMP.cpp)
 target_link_libraries(OpenMP gtest_main TSP_LIB)
+
+
+add_executable(Opt2Test Opt2Test.cpp)
+target_link_libraries(Opt2Test gtest_main TSP_LIB)

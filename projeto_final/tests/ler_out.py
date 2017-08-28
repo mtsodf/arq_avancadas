@@ -123,4 +123,4 @@ axis[1,1].plot(xs, ys, marker="o", ms=5)
 plot_sol(axis[1,0])
 
 
-plt.savefig("resultado.png")
+plt.show("resultado.png")

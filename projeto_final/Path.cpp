@@ -25,11 +25,15 @@ void Path::initCost(){
 }
 
 float Path::distNext(int i){
-    return cities[i]->distance(cities[(i+1)%size]);
+    return dist(i, (i+1)%size);
 }
 
 float Path::distPrevious(int i){
-    return cities[i]->distance(cities[(i+size-1)%size]);
+    return dist(i, (i+size-1)%size);
+}
+
+float Path:: dist(int i, int j){
+    return cities[i]->distance(cities[j]);
 }
 
 Path* Path::copy(){
@@ -69,15 +73,16 @@ float Path::swapTotal(int i, int j){
     City *aux;
 
     if(i > j){
-        int a = i;
-        i = j;
-        j = a;
+        j = j+size;
+        //int a = i;
+        //i = j;
+        //j = a;
     }
 
     for (size_t k = 0; k <= (j-i)/2; k++)
     {
-        aux = cities[i+k];
-        cities[i+k] = cities[j-k];
+        aux = cities[(i+k)%size];
+        cities[i+k] = cities[(j-k)%size];
         cities[j-k] = aux;
     }
 

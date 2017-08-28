@@ -16,6 +16,7 @@ class Path{
         Path(vector<City*>);
         float swap(int, int j);
         float swapTotal(int, int j);
+        float dist(int i, int j);
         float distNext(int);
         float distPrevious(int);
         void scramble();
