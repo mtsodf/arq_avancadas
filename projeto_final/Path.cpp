@@ -73,10 +73,10 @@ float Path::swapTotal(int i, int j){
     City *aux;
 
     if(i > j){
-        j = j+size;
-        //int a = i;
-        //i = j;
-        //j = a;
+        //j = j+size;
+        int a = i;
+        i = j;
+        j = a;
     }
 
     for (size_t k = 0; k <= (j-i)/2; k++)
