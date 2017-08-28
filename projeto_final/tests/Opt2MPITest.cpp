@@ -41,7 +41,7 @@ int main(int argc, char *argv[]){
 
     if(rank == 0){
         printf("Solucao calc %f\n", path->cost);
-        printf("Tempo para solucao: %f", end_time-start_time);
+        printf("Tempo para solucao: %f\n", end_time-start_time);
     }
 
 

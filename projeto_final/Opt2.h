@@ -3,7 +3,7 @@
 
 #include "Path.h"
 
-void findMiniMinjOpenMP(Path* path, int *mini, int *minj, float* minchange);
+void findMiniMinjOpenMP(Path* path, int *mini, int *minj, double* minchange);
 
 class Opt2{
 

@@ -4,10 +4,10 @@
 #include <omp.h>
 #include <mpi.h>
 
-void findMiniMinjOpenMP(Path* path, int *mini, int *minj, float* minchange){
+void findMiniMinjOpenMP(Path* path, int *mini, int *minj, double* minchange){
 
     *minchange = 0.0;
-    float * minchange_array;
+    double * minchange_array;
     int *mini_array, *minj_array;
     #pragma omp parallel shared(minchange_array, mini_array, minj_array)
     {
@@ -18,7 +18,7 @@ void findMiniMinjOpenMP(Path* path, int *mini, int *minj, float* minchange){
 
         #pragma omp single
         {
-            minchange_array = (float*)malloc(sizeof(float)*num_threads);
+            minchange_array = (double*)malloc(sizeof(double)*num_threads);
             mini_array = (int*)malloc(sizeof(int)*num_threads);
             minj_array = (int*)malloc(sizeof(int)*num_threads);
             for(int i = 0; i < num_threads; i++) minchange_array[i] = 0.0;
@@ -62,7 +62,7 @@ Opt2::Opt2(Path* path){
 
 bool Opt2::solve(Path* path, bool log){
 
-    float minchange = 0.0;
+    double minchange = 0.0;
     int mini, minj;
     int iters = 0;
 
@@ -75,13 +75,13 @@ bool Opt2::solve(Path* path, bool log){
 
 }
 
-void findMiniMinjMPI(Path* path, int *mini, int *minj, float* minchange){
+void findMiniMinjMPI(Path* path, int *mini, int *minj, double* minchange){
 
     *minchange = 0.0;
-    float * minchange_array;
+    double * minchange_array;
 
     int inext, jnext;
-    float change;
+    double change;
 
     int rank, mpi_size;
 
@@ -89,7 +89,7 @@ void findMiniMinjMPI(Path* path, int *mini, int *minj, float* minchange){
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm_size(MPI_COMM_WORLD, &mpi_size);
 
-    minchange_array = (float*)malloc(sizeof(float)*mpi_size);
+    minchange_array = (double*)malloc(sizeof(double)*mpi_size);
 
 
     for(int i = rank; i < path->size-2;i=i+mpi_size){
@@ -105,20 +105,7 @@ void findMiniMinjMPI(Path* path, int *mini, int *minj, float* minchange){
             }
     }
 
-    //printf("FIM ITERACAO RANK=%d %f\n", rank, *minchange);
-    MPI_Allgather(minchange, 1, MPI_FLOAT, minchange_array, 1, MPI_FLOAT, MPI_COMM_WORLD);
-    //printf("FIM GATHER RANK=%d\n", rank);
-
-    // for(int i = 0; i  < mpi_size; i++){
-    //     if(rank == i){
-    //         printf("Minchange valor ");
-    //         for(int j = 0; j  < mpi_size; j++){
-    //             printf("%10.2f", minchange_array[j]);
-    //         }
-    //         printf("\n");
-    //     }
-    //     MPI_Barrier(MPI_COMM_WORLD);
-    // }
+    MPI_Allgather(minchange, 1, MPI_DOUBLE, minchange_array, 1, MPI_DOUBLE, MPI_COMM_WORLD);
 
     int min_rank = 0; *minchange = minchange_array[0];
     for(int i = 1; i < mpi_size; i++){
@@ -128,14 +115,13 @@ void findMiniMinjMPI(Path* path, int *mini, int *minj, float* minchange){
         }
     }
 
-    MPI_Bcast(mini,1,MPI_INT,min_rank,MPI_COMM_WORLD);
-    MPI_Bcast(minj,1,MPI_INT,min_rank,MPI_COMM_WORLD);
-
+    MPI_Bcast(mini, 1, MPI_INT, min_rank, MPI_COMM_WORLD);
+    MPI_Bcast(minj, 1, MPI_INT, min_rank, MPI_COMM_WORLD);
 
 }
 
 bool Opt2::solveMPI(Path *path, bool log){
-    float minchange = 0.0;
+    double minchange = 0.0;
     int mini, minj;
     int iters = 0;
 
