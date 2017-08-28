@@ -10,11 +10,17 @@ if (OPENMP_FOUND)
     set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
 endif()
 
+find_package(MPI)
+
+if(MPI_FOUND)
+    include_directories(${MPI_INCLUDE_PATH})
+endif()
 
 add_subdirectory(googletest)
 
 
 add_library(TSP_LIB City.cpp Path.cpp AnnealingStealing.cpp Opt2.cpp rf-time.cc)
+target_link_libraries(TSP_LIB ${MPI_LIBRARIES})
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
