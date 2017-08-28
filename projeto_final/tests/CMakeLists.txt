@@ -11,3 +11,6 @@ target_link_libraries(OpenMP gtest_main TSP_LIB)
 
 add_executable(Opt2Test Opt2Test.cpp)
 target_link_libraries(Opt2Test gtest_main TSP_LIB)
+
+add_executable(Opt2MpiTest Opt2MpiTest.cpp)
+target_link_libraries(Opt2MpiTest gtest_main TSP_LIB)

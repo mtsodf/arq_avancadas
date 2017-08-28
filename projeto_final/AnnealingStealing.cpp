@@ -34,9 +34,9 @@ AnnealingStealing::AnnealingStealing(Path *path, float temperature, float alpha,
     this->limit = limit;
 }
 
-float AnnealingStealing::trySwap(Path* path, float temperature){
+double AnnealingStealing::trySwap(Path* path, float temperature){
     int i, j;
-    float cost;
+    double cost;
 
     cost = path->cost;
 
@@ -44,7 +44,7 @@ float AnnealingStealing::trySwap(Path* path, float temperature){
 
     path->swapTotal(i,j);
 
-    float delta  = path->cost - cost;
+    double delta  = path->cost - cost;
 
 
     if(delta < 0){
@@ -81,12 +81,12 @@ void AnnealingStealing::solve(bool log, int min_iters, int max_iters, int outer_
     solve(log, min_iters, max_iters, outer_iters, 0.0);
 }
 
-void AnnealingStealing::solveOpenMp(bool log, int min_iters, int max_iters, int outer_iters, float accepted_cost){
+void AnnealingStealing::solveOpenMp(bool log, int min_iters, int max_iters, int outer_iters, double accepted_cost){
     bool found_solution = false;
 
     vector<Path*> paths(4);
     int minId;
-    float min;
+    double min;
     #pragma omp parallel shared(found_solution, min, minId)
     {
 

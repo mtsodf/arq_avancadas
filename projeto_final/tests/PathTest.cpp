@@ -79,7 +79,7 @@ TEST(Path, totalSwap){
   EXPECT_NEAR(path->cost, 8 + 4*sqrt(2), 1e-6);
 
   int mini, minj; float minchange;
-  findMiniMinj(path, &mini, &minj, &minchange);
+  findMiniMinjOpenMP(path, &mini, &minj, &minchange);
 
   EXPECT_EQ(1, mini);
   EXPECT_EQ(4, minj);
@@ -145,6 +145,7 @@ TEST(TSP, AnnealingStealing_4){
 
 TEST(TSP, AnnealingStealing_48){
   ///return;
+  srand(time(NULL));
   vector<City*> cities = createCityVector("../../ALL_tsp/att48.tsp");
   EXPECT_EQ(cities.size(), 48);
   EXPECT_NEAR(cities[0]->x, 6734, 1e-6);
@@ -160,7 +161,7 @@ TEST(TSP, AnnealingStealing_48){
 
   printf("Tamanho do caminho %d\n", cities.size());
   Path* path = new Path(cities);
-
+  path->scramble();
   EXPECT_EQ(path->size, 48);
 
   AnnealingStealing* ann = new AnnealingStealing(path, 1000.0, 0.9999, 1e-10);
@@ -169,7 +170,8 @@ TEST(TSP, AnnealingStealing_48){
   printf("Solucao Calc %f\n", path->cost);
   printf("Solucao %f\n", path_sol->cost);
 
-  EXPECT_NEAR(path_sol->cost, path->cost, 1e-5);
+  EXPECT_GT(path_sol->cost*1.1, path->cost);
+
 
 }
 

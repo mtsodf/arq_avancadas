@@ -12,13 +12,13 @@ class Path{
     public:
         int size;
         vector<City*> cities;
-        float cost;
+        double cost;
         Path(vector<City*>);
-        float swap(int, int j);
-        float swapTotal(int, int j);
-        float dist(int i, int j);
-        float distNext(int);
-        float distPrevious(int);
+        double swap(int, int j);
+        double swapTotal(int, int j);
+        double dist(int i, int j);
+        double distNext(int);
+        double distPrevious(int);
         void scramble();
         Path * copy();
         ~Path();

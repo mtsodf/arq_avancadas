@@ -16,7 +16,7 @@ public:
     Path  *path;
     AnnealingStealing(Path*, float, float, float);
 
-    void solveOpenMp(bool log, int min_iters, int max_iters, int outer_iters, float accepted_cost);
+    void solveOpenMp(bool log, int min_iters, int max_iters, int outer_iters, double accepted_cost);
     bool solve(Path*, bool, int, int, int, float, bool*);
     void solve(bool, int, int, int);
     void solve(bool, int, int, int, float);
@@ -24,7 +24,7 @@ public:
     void solve(bool);
     void solve();
     float updateTemperature();
-    float trySwap(Path *path, float temperature);
+    double trySwap(Path *path, float temperature);
 };
 
 #endif

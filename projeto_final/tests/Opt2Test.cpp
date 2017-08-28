@@ -68,7 +68,6 @@ TEST(Opt2, SolveTest_48){
 }
 
 TEST(Opt2, SolveTest_200){
-    return;
     srand(time(NULL));
     vector<City*> cities;
     vector<City*> cities_sol;
@@ -158,7 +157,6 @@ TEST(Opt2, SolveTest_1379){
 }
 
 TEST(Opt2, SolveTest_442){
-    return;
     //srand(time(NULL));
     vector<City*> cities;
     double start_time, end_time;
