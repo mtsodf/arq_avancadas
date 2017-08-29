@@ -10,7 +10,7 @@
 
 using namespace std;
 
-void ler_cidades(char* file, int *n, float **xs, float **ys){
+void ler_cidades(char* file, int *n, double **xs, double **ys){
 
     FILE* entrada;
 
@@ -36,15 +36,15 @@ void ler_cidades(char* file, int *n, float **xs, float **ys){
     }
 
 
-    *xs = (float*) malloc((*n)*sizeof(float));
-    *ys = (float*) malloc((*n)*sizeof(float));
+    *xs = (double*) malloc((*n)*sizeof(double));
+    *ys = (double*) malloc((*n)*sizeof(double));
 
 
-    float x, y;
+    double x, y;
     int ind;
     for(int i = 0; i < *n; i++)
     {
-        fscanf(entrada, "%d %f %f", &ind, &x, &y);
+        fscanf(entrada, "%d %lf %lf", &ind, &x, &y);
         (*xs)[ind-1] = x; (*ys)[ind-1] = y;
     }
 
@@ -54,7 +54,7 @@ void ler_cidades(char* file, int *n, float **xs, float **ys){
 vector<City*> createCityVector(char* file){
 
     int n;
-    float *xs, *ys;
+    double *xs, *ys;
 
     ler_cidades(file, &n, &xs, &ys);
 

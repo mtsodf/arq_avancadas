@@ -1,7 +1,7 @@
-NAME : pcb442.opt.tour
-TYPE : TOUR
-COMMENT : Optimal solution for pcb442 (50778)
-DIMENSION : 442
+NAME: pcb442.opt.tour
+TYPE: TOUR
+COMMENT: Optimal solution for pcb442 (50778)
+DIMENSION: 442
 TOUR_SECTION
 1
 2

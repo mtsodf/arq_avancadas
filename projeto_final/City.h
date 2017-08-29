@@ -5,10 +5,10 @@
 
 class City {
     public:
-        City(float, float, int);
-        float x, y;
+        City(double, double, int);
+        double x, y;
         int id;
-        float distance(City*);
+        double distance(City*);
         void print();
 };
 
