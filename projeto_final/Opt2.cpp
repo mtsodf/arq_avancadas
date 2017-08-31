@@ -52,7 +52,7 @@ void findMiniMinjOpenMPOld(Path* path, int *mini, int *minj, double* minchange, 
             }
         }
 
-        if(id==0) times[2] = get_clock_msec();        
+        if(id==0) times[2] = get_clock_msec();
     }
 }
 
@@ -98,7 +98,7 @@ void findMiniMinjOpenMP(Path* path, int *mini, int *minj, double* minchange, dou
             }
         }
 
-        if(id==0) times[2] = get_clock_msec();        
+        if(id==0) times[2] = get_clock_msec();
     }
 }
 
@@ -114,25 +114,33 @@ Opt2::Opt2(Path* path){
 }
 
 
-bool Opt2::solve(Path* path, bool log, int *iters, double *times){
+bool Opt2::solve(Path* path, bool log, int *iters, double *times, bool logAllPaths){
 
     double minchange = 0.0, start, end;
     int mini, minj;
     *iters = 0;
     double times_find[3];
     times[0] = 0.0;
-    times[1] = 0.0;    
+    times[1] = 0.0;
     start = get_clock_msec();
     do{
         findMiniMinjOpenMP(path, &mini, &minj, &minchange, times_find);
         //printf("%5d MINCHANGE = %10lf (%5d, %5d)\n", *iters, minchange, mini, minj);
-        
+
         if(minchange < epsilon)  path->swapTotal(mini+1, minj);
-        
+
         (*iters)++;
         //if((*iters)%100==0 && log) printf("Iteracao %d. Custo %f\n", iters, path->cost);
         times[0] += times_find[1] - times_find[0];
         times[1] += times_find[2] - times_find[1];
+
+        if(log){
+            char filename[60];
+            sprintf(filename, "path_%d.txt", *iters);
+            FILE* out = fopen(filename, "w");
+
+            fclose(out);
+        }
     } while(minchange < epsilon);
 
 
@@ -160,7 +168,7 @@ void findMiniMinjMPI(Path* path, int *mini, int *minj, double* minchange, double
 
     minchange_array = (double*)malloc(sizeof(double)*mpi_size);
 
-    times[0] = get_clock_msec(); 
+    times[0] = get_clock_msec();
     for(int i = rank; i < path->size-2;i=i+mpi_size){
         inext = (i+1)%(path->size);
         for(int j = i+2; j < path->size; j++){
@@ -173,8 +181,8 @@ void findMiniMinjMPI(Path* path, int *mini, int *minj, double* minchange, double
                 }
         }
     }
-    
-    times[1] = get_clock_msec(); 
+
+    times[1] = get_clock_msec();
 
     MPI_Allgather(minchange, 1, MPI_DOUBLE, minchange_array, 1, MPI_DOUBLE, MPI_COMM_WORLD);
 
@@ -189,12 +197,12 @@ void findMiniMinjMPI(Path* path, int *mini, int *minj, double* minchange, double
     MPI_Bcast(mini, 1, MPI_INT, min_rank, MPI_COMM_WORLD);
     MPI_Bcast(minj, 1, MPI_INT, min_rank, MPI_COMM_WORLD);
 
-    times[2] = get_clock_msec(); 
+    times[2] = get_clock_msec();
 
 }
 
 
-bool Opt2::solveMPI(Path *path, bool log, int* iters, double *times){
+bool Opt2::solveMPI(Path *path, bool log, int* iters, double *times, bool logAllPaths){
 
     double minchange = 0.0;
     int mini, minj;
@@ -216,6 +224,7 @@ bool Opt2::solveMPI(Path *path, bool log, int* iters, double *times){
         times[0] += times_find[1] - times_find[0];
         times[1] += times_find[2] - times_find[1];
         if((*iters)%100==0 && rank == 0) printf("Iteracao %d. Custo %lf. %d %d\n", *iters, path->cost, mini, minj);
+        if(logAllPaths && rank == 0) PrintPath(path, *iters);
     } while(minchange < epsilon);
 
 }

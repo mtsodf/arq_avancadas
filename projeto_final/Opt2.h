@@ -11,8 +11,8 @@ public:
     Path  *path;
     Opt2(Path*);
     bool solve(Path* path, bool log);
-    bool solve(Path* path, bool log, int *iters, double *times);
-    bool solveMPI(Path *path, bool log, int* iters, double *times);
+    bool solve(Path* path, bool log, int *iters, double *times, bool logAllPaths);
+    bool solveMPI(Path *path, bool log, int* iters, double *times, bool logAllPaths);
 };
 
 #endif
