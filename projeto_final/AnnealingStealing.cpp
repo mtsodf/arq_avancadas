@@ -4,34 +4,9 @@
 #include <stdlib.h>
 #include <cmath>
 #include <omp.h>
+#include "utils.h"
 
 using namespace std;
-
-
-void PrintPath(Path* path){
-
-    for (size_t i = 0; i < path->size; i++)
-    {
-        printf("%d %f %f\n", path->cities[i]->id, path->cities[i]->x, path->cities[i]->y);
-    }
-}
-
-void PrintPath(int iter, Path* path){
-    char filename[100];
-    sprintf(filename, "path_%d.txt", iter);
-    PrintPath(filename, path);
-}
-
-void PrintPath(char* filename, Path* path){
-    FILE* out = fopen(filename, "w");
-
-    for (size_t i = 0; i < path->size; i++)
-    {
-        fprintf(out, "%d %f %f\n", path->cities[i]->id, path->cities[i]->x, path->cities[i]->y);
-    }
-
-    fclose(out);
-}
 
 void sortSwap(int *i, int *j, int n){
     *i = rand() % n;

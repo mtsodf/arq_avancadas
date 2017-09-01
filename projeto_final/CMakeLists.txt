@@ -19,7 +19,7 @@ endif()
 add_subdirectory(googletest)
 
 
-add_library(TSP_LIB City.cpp Path.cpp AnnealingStealing.cpp Opt2.cpp rf-time.cc)
+add_library(TSP_LIB City.cpp Path.cpp AnnealingStealing.cpp Opt2.cpp utils.cc)
 target_link_libraries(TSP_LIB ${MPI_LIBRARIES})
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})

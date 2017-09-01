@@ -6,7 +6,7 @@
 #include <math.h>
 #include <omp.h>
 #include "AnnealingStealing.h"
-#include "rf-time.h"
+#include "utils.h"
 
 using namespace std;
 

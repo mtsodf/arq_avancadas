@@ -7,8 +7,7 @@
 #include <math.h>
 #include <omp.h>
 #include "Opt2.h"
-#include "AnnealingStealing.h"
-#include "rf-time.h"
+#include "utils.h"
 #include <mpi.h>
 
 using namespace std;
@@ -50,6 +49,7 @@ int main(int argc, char *argv[]){
 
     path->scramble();
 
+
     printf("Sou o processo %d. Cidades %d\n", rank, cities.size());
 
     Opt2* opt2Solver = new Opt2(path);
@@ -58,7 +58,7 @@ int main(int argc, char *argv[]){
 
     start_time = get_clock_msec();
 
-    opt2Solver->solveMPI(path, false, &iters, solveTime);
+    opt2Solver->solveMPI(path, false, &iters, solveTime, false);
 
     end_time = get_clock_msec();
 
@@ -76,7 +76,7 @@ int main(int argc, char *argv[]){
         printf("Tempo para sincronizar: %lf\n", solveTime[1]);
         printf("Numero de iteracoes   : %d\n", iters);
 
-        
+
         FILE* resultados;
 
         if(argc > 2){
@@ -88,7 +88,7 @@ int main(int argc, char *argv[]){
         double cost_sol = path_sol==NULL? 0.0 : path_sol->cost;
         fprintf(resultados, "%s; MPI; %d ; %lf; %lf; %lf; %d; %lf; %lf\n", argv[1], mpi_size, end_time-start_time, solveTime[0], solveTime[1], iters, path->cost, cost_sol);
         fclose(resultados);
-        
+
     }
 
 

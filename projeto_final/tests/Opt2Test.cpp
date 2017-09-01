@@ -8,7 +8,7 @@
 #include <omp.h>
 #include "Opt2.h"
 #include "AnnealingStealing.h"
-#include "rf-time.h"
+#include "utils.h"
 
 using namespace std;
 
