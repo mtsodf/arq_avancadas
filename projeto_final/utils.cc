@@ -1,9 +1,11 @@
 
 #include <sys/time.h>
+#include <time.h>
 #include "Path.h"
 #include "utils.h"
 #include <string.h>
-
+#include <stdlib.h>
+#include <stdio.h>
 
 
 TimeCounter* timers[MAX_THREADS];
@@ -17,7 +19,7 @@ void initTimers(int rank){
 	t->registerTimer("Barreira", barrierSection);
 	t->registerTimer("Swap", swapSection);
 	t->registerTimer("Algoritmo Total", totalOptSection);
-
+	t->registerTimer("Secao critica", criticalSection);
 }
 
 void initTimers(){
@@ -61,6 +63,9 @@ void PrintPath(int iter, Path* path){
 
 void PrintPath(char* filename, Path* path){
 	FILE* out = fopen(filename, "w");
+
+	fprintf(out, "%d\n", path->size);
+
 	for (size_t i = 0; i < path->size; i++)
 	{
 		fprintf(out, "%d %f %f\n", path->cities[i]->id, path->cities[i]->x, path->cities[i]->y);
@@ -127,4 +132,8 @@ void TimeCounter::printAllSections(){
 
 double TimeCounter::getTotalTime(int id){
 	return times[id][0];
+}
+
+void getRunId(char* run_id){
+	sprintf(run_id, "%lu%lu%d", time(NULL), clock(), rand()%100);
 }

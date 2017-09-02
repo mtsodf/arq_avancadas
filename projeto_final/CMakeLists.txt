@@ -27,6 +27,9 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 add_executable(main main.cpp)
 target_link_libraries(main TSP_LIB)
 
+add_executable(GeneratePaths GeneratePaths.cpp)
+target_link_libraries(GeneratePaths TSP_LIB)
+
 add_subdirectory(tests)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})

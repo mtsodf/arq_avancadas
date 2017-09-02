@@ -47,8 +47,9 @@ int main(int argc, char *argv[]){
 
     Path* path = new Path(cities);
 
-    path->scramble();
+    //path->scramble();
 
+    initTimers(rank);
 
     printf("Sou o processo %d. Cidades %d\n", rank, cities.size());
 
@@ -56,11 +57,16 @@ int main(int argc, char *argv[]){
 
     MPI_Barrier(MPI_COMM_WORLD);
 
-    start_time = get_clock_msec();
-
+    getTimeCounter(rank)->startTimer(totalOptSection);
     opt2Solver->solveMPI(path, false, &iters, solveTime, false);
+    getTimeCounter(rank)->endTimer(totalOptSection);
 
-    end_time = get_clock_msec();
+    char run_id[200];
+    getRunId(run_id);
+    MPI_Bcast(run_id, 200, MPI_CHAR, 0, MPI_COMM_WORLD);
+
+    printf("RUN ID %s\n", run_id);
+
 
     if(rank == 0){
         Path *path_sol=NULL;
@@ -71,9 +77,12 @@ int main(int argc, char *argv[]){
         }
 
         printf("Solucao calc          : %lf\n", path->cost);
-        printf("Tempo para solucao:   : %lf\n", end_time-start_time);
-        printf("Tempo de calculo      : %lf\n", solveTime[0]);
-        printf("Tempo para sincronizar: %lf\n", solveTime[1]);
+        printf("Tempo para solucao    : %lf\n", getTimeCounter(0)->getTotalTime(totalOptSection));
+        printf("Tempo de calculo      : %lf\n", getTimeCounter(0)->getTotalTime(findMinimumSection));
+        printf("Tempo para sincronizar: %lf\n", getTimeCounter(0)->getTotalTime(barrierSection));
+        printf("Tempo endParallel     : %lf\n", getTimeCounter(0)->getTotalTime(endParallelSection));
+        printf("Tempo para swap       : %lf\n", getTimeCounter(0)->getTotalTime(swapSection));
+        printf("Tempo para critical   : %lf\n", getTimeCounter(0)->getTotalTime(criticalSection));
         printf("Numero de iteracoes   : %d\n", iters);
 
 
@@ -85,11 +94,61 @@ int main(int argc, char *argv[]){
             resultados = fopen("resultados__.txt", "a+");
         }
 
+
         double cost_sol = path_sol==NULL? 0.0 : path_sol->cost;
-        fprintf(resultados, "%s; MPI; %d ; %lf; %lf; %lf; %d; %lf; %lf\n", argv[1], mpi_size, end_time-start_time, solveTime[0], solveTime[1], iters, path->cost, cost_sol);
+        fprintf(resultados, "%s; %s; MPI; %d; ", run_id, argv[1], mpi_size);
+        fprintf(resultados, "%lf; ", getTimeCounter(0)->getTotalTime(totalOptSection));
+        fprintf(resultados, "%lf; ", getTimeCounter(0)->getTotalTime(findMinimumSection));
+        fprintf(resultados, "%lf; ", getTimeCounter(0)->getTotalTime(barrierSection));
+        fprintf(resultados, "%lf; ", getTimeCounter(0)->getTotalTime(swapSection));
+        fprintf(resultados, "%lf; ", path->cost);
+        fprintf(resultados, "%lf;\n", cost_sol);
+
         fclose(resultados);
 
     }
+
+    char filename[50];
+    sprintf(filename, "%s.json", run_id);
+
+
+    if(rank == 0){
+        FILE* resultados = fopen(filename, "a+");
+        fprintf(resultados, "{\n");
+        fprintf(resultados, "\"id\": %s,\n", run_id);
+        fprintf(resultados, "\"file\": \"%s\",\n", argv[1]);
+        fprintf(resultados, "\"size\": %d,\n", mpi_size);
+        fprintf(resultados, "\"run\": [\n");
+        fclose(resultados);
+    }
+
+    for (size_t i = 0; i < mpi_size; i++)
+    {
+        if(i == rank){
+            FILE* resultados = fopen(filename, "a+");
+
+            fprintf(resultados, "{\n");
+            fprintf(resultados, "\t\"rank\": %d,\n", i);
+            fprintf(resultados, "\t\"solTime\": %lf,\n",     getTimeCounter(rank)->getTotalTime(totalOptSection));
+            fprintf(resultados, "\t\"parallelTime\": %lf,\n",getTimeCounter(rank)->getTotalTime(findMinimumSection));
+            fprintf(resultados, "\t\"serialTime\": %lf,\n",  getTimeCounter(rank)->getTotalTime(barrierSection));
+            fprintf(resultados, "\t\"swapTime\": %lf,\n",    getTimeCounter(rank)->getTotalTime(swapSection));
+            fprintf(resultados, "\t\"criticalTime\": %lf\n", getTimeCounter(rank)->getTotalTime(criticalSection));
+            if(rank != mpi_size - 1){
+                fprintf(resultados, "},\n");
+            } else{
+                fprintf(resultados, "}\n");
+                fprintf(resultados, "]\n");
+                fprintf(resultados, "}\n");
+            }
+
+
+
+            fclose(resultados);
+        }
+        MPI_Barrier(MPI_COMM_WORLD);
+    }
+
 
 
     MPI_Finalize();

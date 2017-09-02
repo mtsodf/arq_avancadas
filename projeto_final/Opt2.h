@@ -12,7 +12,7 @@ public:
     Opt2(Path*);
     bool solve(Path* path, bool log);
     bool solve(Path* path, bool log, int *iters, double *times, bool logAllPaths);
-    bool solveOpenMP(Path* path, bool log, int *iters, double *times, bool logAllPaths);
+    bool solveOpenMP(Path* path, bool log, int *iters,  bool logAllPaths);
     bool solveMPI(Path *path, bool log, int* iters, double *times, bool logAllPaths);
 };
 

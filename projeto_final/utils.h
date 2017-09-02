@@ -17,12 +17,13 @@ void PrintPath(char* filename, Path* path);
 
 
 
-enum sections { initSection = 0, findMinimumSection, barrierSection, endParallelSection, swapSection, totalOptSection};
+enum sections { initSection = 0, findMinimumSection, barrierSection, endParallelSection, swapSection, totalOptSection, criticalSection};
 
 
 void initTimers(int id);
 void initTimers();
 
+void getRunId(char* run_id);
 
 
 class TimeCounter{

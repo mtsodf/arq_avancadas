@@ -73,7 +73,7 @@ void findMiniMinjOpenMPNew(Path* path, int *mini, int *minj, double* minchange){
     int inext, jnext;
     double change;
     int mini_local, minj_local;
-    double minchange_local = 0.0;
+    double minchange_local = 0.0, timeNow;
 
 
     int id = omp_get_thread_num();
@@ -81,8 +81,6 @@ void findMiniMinjOpenMPNew(Path* path, int *mini, int *minj, double* minchange){
     getTimeCounter(id)->startTimer(findMinimumSection);
 
 
-
-    #pragma omp barrier
     for(int i = id; i < path->size-2;i+=num_threads){
         inext = (i+1)%(path->size);
         for(int j = i+2; j < path->size; j++){
@@ -96,7 +94,10 @@ void findMiniMinjOpenMPNew(Path* path, int *mini, int *minj, double* minchange){
         }
     }
 
-    getTimeCounter(id)->endStartTimer(findMinimumSection, barrierSection);
+    timeNow = get_clock_msec();
+    getTimeCounter(id)->endTimer(findMinimumSection, timeNow);
+    getTimeCounter(id)->startTimer(barrierSection, timeNow);
+    getTimeCounter(id)->startTimer(criticalSection, timeNow);
 
     #pragma omp critical
     {
@@ -107,12 +108,8 @@ void findMiniMinjOpenMPNew(Path* path, int *mini, int *minj, double* minchange){
         }
     }
 
+    getTimeCounter(id)->endTimer(criticalSection);
     #pragma omp barrier
-    //printf("TROCA %lf %d %d. CUSTO ATUAL %lf\n", *minchange, *mini, *minj, path->cost);
-    #pragma omp barrier
-
-    getTimeCounter(id)->endTimer(barrierSection);
-
 }
 
 
@@ -127,24 +124,34 @@ Opt2::Opt2(Path* path){
 }
 
 
-bool Opt2::solveOpenMP(Path* path, bool log, int *iters, double *times, bool logAllPaths){
+bool Opt2::solveOpenMP(Path* path, bool log, int *iters, bool logAllPaths){
 
     double minchange = 0.0;
     int mini, minj;
     *iters = 0;
     bool changed = false;
+    int num_threads;
 
-
-    #pragma omp parallel shared(mini, minj, minchange, path, changed)
+    #pragma omp parallel shared(mini, minj, minchange, path, changed, num_threads)
     {
         int id = omp_get_thread_num();
+        num_threads = omp_get_num_threads();
         do{
 
             findMiniMinjOpenMPNew(path, &mini, &minj, &minchange);
 
-            #pragma omp single
+            getTimeCounter(id)->startTimer(swapSection);
+            if(id == 0)
             {
-                getTimeCounter(0)->startTimer(swapSection);
+                if(logAllPaths){
+                    char filename[60];
+                    sprintf(filename, "path_%.2d.txt", *iters);
+                    PrintPath(filename, path);
+                    FILE* out = fopen(filename, "a+");
+                    fprintf(out, "%d %d\n", mini, minj);
+                    fclose(out);
+                }
+
                 if(minchange < epsilon) {
                     path->swapTotal(mini+1, minj);
                     changed = true;
@@ -155,20 +162,21 @@ bool Opt2::solveOpenMP(Path* path, bool log, int *iters, double *times, bool log
                 (*iters)++;
                 minchange = 0.0;
 
-                getTimeCounter(0)->endTimer(swapSection);
-
-
-                if(logAllPaths){
-                    char filename[60];
-                    sprintf(filename, "path_%d.txt", *iters);
-                    FILE* out = fopen(filename, "w");
-
-                    fclose(out);
-                }
             }
+            getTimeCounter(id)->endTimer(swapSection);
+            #pragma omp barrier
+            getTimeCounter(id)->endTimer(barrierSection);
 
         } while(changed);
+
+        getTimeCounter(id)->startTimer(endParallelSection);
     }
+    double timeNow = get_clock_msec();
+    for (size_t i = 0; i < num_threads; i++)
+    {
+        getTimeCounter(i)->endTimer(endParallelSection, timeNow);
+    }
+
 
 }
 
@@ -184,7 +192,7 @@ bool Opt2::solve(Path* path, bool log, int *iters, double *times, bool logAllPat
     start = get_clock_msec();
     do{
         findMiniMinjOpenMP(path, &mini, &minj, &minchange, times_find);
-        printf("%5d MINCHANGE = %10lf (%5d, %5d)\n", *iters, minchange, mini, minj);
+        //printf("%5d MINCHANGE = %10lf (%5d, %5d)\n", *iters, minchange, mini, minj);
 
         getTimeCounter(0)->startTimer(swapSection);
         if(minchange < epsilon)  path->swapTotal(mini+1, minj);
@@ -212,7 +220,7 @@ bool Opt2::solve(Path* path, bool log){
     solve(path, log, &aux_int, aux, false);
 }
 
-void findMiniMinjMPI(Path* path, int *mini, int *minj, double* minchange, double* times){
+void findMiniMinjMPI(Path* path, int *mini, int *minj, double* minchange){
 
     *minchange = 0.0;
     double * minchange_array;
@@ -228,7 +236,8 @@ void findMiniMinjMPI(Path* path, int *mini, int *minj, double* minchange, double
 
     minchange_array = (double*)malloc(sizeof(double)*mpi_size);
 
-    times[0] = get_clock_msec();
+    getTimeCounter(rank)->startTimer(findMinimumSection);
+
     for(int i = rank; i < path->size-2;i=i+mpi_size){
         inext = (i+1)%(path->size);
         for(int j = i+2; j < path->size; j++){
@@ -242,7 +251,7 @@ void findMiniMinjMPI(Path* path, int *mini, int *minj, double* minchange, double
         }
     }
 
-    times[1] = get_clock_msec();
+    getTimeCounter(rank)->endStartTimer(findMinimumSection, barrierSection);
 
     MPI_Allgather(minchange, 1, MPI_DOUBLE, minchange_array, 1, MPI_DOUBLE, MPI_COMM_WORLD);
 
@@ -256,9 +265,6 @@ void findMiniMinjMPI(Path* path, int *mini, int *minj, double* minchange, double
 
     MPI_Bcast(mini, 1, MPI_INT, min_rank, MPI_COMM_WORLD);
     MPI_Bcast(minj, 1, MPI_INT, min_rank, MPI_COMM_WORLD);
-
-    times[2] = get_clock_msec();
-
 }
 
 bool Opt2::solveMPI(Path *path, bool log, int* iters, double *times, bool logAllPaths){
@@ -267,23 +273,22 @@ bool Opt2::solveMPI(Path *path, bool log, int* iters, double *times, bool logAll
     int mini, minj;
     *iters = 0;
 
-    double times_find[3];
-    times[0] = 0.0;
-    times[1] = 0.0;
     int rank;
 
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
     do{
-        findMiniMinjMPI(path, &mini, &minj, &minchange, times_find);
+        findMiniMinjMPI(path, &mini, &minj, &minchange);
         //if(rank == 0) printf("%5d MINCHANGE = %10lf (%5d, %5d)\n", *iters, minchange, mini, minj);
 
+        getTimeCounter(rank)->startTimer(swapSection);
         if(minchange < epsilon)  path->swapTotal(mini+1, minj);
+        getTimeCounter(rank)->endTimer(swapSection);
         (*iters)++;
-        times[0] += times_find[1] - times_find[0];
-        times[1] += times_find[2] - times_find[1];
+
+        getTimeCounter(rank)->endTimer(barrierSection);
+
         if((*iters)%100==0 && rank == 0) printf("Iteracao %d. Custo %lf. %d %d\n", *iters, path->cost, mini, minj);
-        if(logAllPaths && rank == 0) PrintPath(*iters, path);
     } while(minchange < epsilon);
 
 }
