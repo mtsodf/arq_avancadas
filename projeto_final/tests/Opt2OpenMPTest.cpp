@@ -45,12 +45,12 @@ int main(int argc, char *argv[]){
     cities = createCityVector(argv[1]);
 
     Path* path = new Path(cities);
-    path->scramble();
+    //path->scramble();
 
     Opt2* opt2Solver = new Opt2(path);
 
     getTimeCounter(0)->startTimer(totalOptSection);
-    opt2Solver->solve(path, false, &iters, solveTime, false);
+    opt2Solver->solveOpenMP(path, false, &iters, solveTime, false);
     getTimeCounter(0)->endTimer(totalOptSection);
 
 
@@ -60,6 +60,8 @@ int main(int argc, char *argv[]){
         path_sol = new Path(cities_sol);
         printf("Solucao opt           : %lf\n", path_sol->cost);
     }
+
+
 
     printf("Solucao calc          : %lf\n", path->cost);
     printf("Tempo para solucao    : %lf\n", getTimeCounter(0)->getTotalTime(totalOptSection));
