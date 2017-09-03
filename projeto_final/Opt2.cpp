@@ -236,7 +236,7 @@ void findMiniMinjMPI(Path* path, int *mini, int *minj, double* minchange){
 
     minchange_array = (double*)malloc(sizeof(double)*mpi_size);
 
-    getTimeCounter(rank)->startTimer(findMinimumSection);
+    getTimeCounter(0)->startTimer(findMinimumSection);
 
     for(int i = rank; i < path->size-2;i=i+mpi_size){
         inext = (i+1)%(path->size);
@@ -251,7 +251,7 @@ void findMiniMinjMPI(Path* path, int *mini, int *minj, double* minchange){
         }
     }
 
-    getTimeCounter(rank)->endStartTimer(findMinimumSection, barrierSection);
+    getTimeCounter(0)->endStartTimer(findMinimumSection, barrierSection);
 
     MPI_Allgather(minchange, 1, MPI_DOUBLE, minchange_array, 1, MPI_DOUBLE, MPI_COMM_WORLD);
 
@@ -281,12 +281,12 @@ bool Opt2::solveMPI(Path *path, bool log, int* iters, double *times, bool logAll
         findMiniMinjMPI(path, &mini, &minj, &minchange);
         //if(rank == 0) printf("%5d MINCHANGE = %10lf (%5d, %5d)\n", *iters, minchange, mini, minj);
 
-        getTimeCounter(rank)->startTimer(swapSection);
+        getTimeCounter(0)->startTimer(swapSection);
         if(minchange < epsilon)  path->swapTotal(mini+1, minj);
-        getTimeCounter(rank)->endTimer(swapSection);
+        getTimeCounter(0)->endTimer(swapSection);
         (*iters)++;
 
-        getTimeCounter(rank)->endTimer(barrierSection);
+        getTimeCounter(0)->endTimer(barrierSection);
 
         if((*iters)%100==0 && rank == 0) printf("Iteracao %d. Custo %lf. %d %d\n", *iters, path->cost, mini, minj);
     } while(minchange < epsilon);

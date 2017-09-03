@@ -44,7 +44,7 @@ int main(int argc, char *argv[]){
     cities = createCityVector(argv[1]);
 
     Path* path = new Path(cities);
-    //path->scramble();
+    path->scramble();
 
     Opt2* opt2Solver = new Opt2(path);
 
@@ -87,6 +87,7 @@ int main(int argc, char *argv[]){
     fprintf(resultados, "%lf; ", getTimeCounter(0)->getTotalTime(findMinimumSection));
     fprintf(resultados, "%lf; ", getTimeCounter(0)->getTotalTime(barrierSection));
     fprintf(resultados, "%lf; ", getTimeCounter(0)->getTotalTime(swapSection));
+    fprintf(resultados, "%d; ", iters);
     fprintf(resultados, "%lf; ", path->cost);
     fprintf(resultados, "%lf;\n", cost_sol);
 
@@ -100,6 +101,7 @@ int main(int argc, char *argv[]){
     fprintf(resultados, "{\n");
     fprintf(resultados, "\"id\": %s,\n", run_id);
     fprintf(resultados, "\"file\": \"%s\",\n", argv[1]);
+    fprintf(resultados, "\"type\": \"OpenMP\",\n");
     fprintf(resultados, "\"size\": %d,\n", num_threads);
     fprintf(resultados, "\"run\": [\n");
 
@@ -121,6 +123,7 @@ int main(int argc, char *argv[]){
     fprintf(resultados, "]\n");
     fprintf(resultados, "}\n");
     fclose(resultados);
+   
 
 
 }

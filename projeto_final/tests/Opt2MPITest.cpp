@@ -47,9 +47,9 @@ int main(int argc, char *argv[]){
 
     Path* path = new Path(cities);
 
-    //path->scramble();
+    path->scramble();
 
-    initTimers(rank);
+    initTimers(0);
 
     printf("Sou o processo %d. Cidades %d\n", rank, cities.size());
 
@@ -57,9 +57,9 @@ int main(int argc, char *argv[]){
 
     MPI_Barrier(MPI_COMM_WORLD);
 
-    getTimeCounter(rank)->startTimer(totalOptSection);
+    getTimeCounter(0)->startTimer(totalOptSection);
     opt2Solver->solveMPI(path, false, &iters, solveTime, false);
-    getTimeCounter(rank)->endTimer(totalOptSection);
+    getTimeCounter(0)->endTimer(totalOptSection);
 
     char run_id[200];
     getRunId(run_id);
@@ -101,6 +101,7 @@ int main(int argc, char *argv[]){
         fprintf(resultados, "%lf; ", getTimeCounter(0)->getTotalTime(findMinimumSection));
         fprintf(resultados, "%lf; ", getTimeCounter(0)->getTotalTime(barrierSection));
         fprintf(resultados, "%lf; ", getTimeCounter(0)->getTotalTime(swapSection));
+        fprintf(resultados, "%d; ", iters);
         fprintf(resultados, "%lf; ", path->cost);
         fprintf(resultados, "%lf;\n", cost_sol);
 
@@ -117,6 +118,7 @@ int main(int argc, char *argv[]){
         fprintf(resultados, "{\n");
         fprintf(resultados, "\"id\": %s,\n", run_id);
         fprintf(resultados, "\"file\": \"%s\",\n", argv[1]);
+        fprintf(resultados, "\"type\": \"MPI\",\n");
         fprintf(resultados, "\"size\": %d,\n", mpi_size);
         fprintf(resultados, "\"run\": [\n");
         fclose(resultados);
@@ -129,11 +131,11 @@ int main(int argc, char *argv[]){
 
             fprintf(resultados, "{\n");
             fprintf(resultados, "\t\"rank\": %d,\n", i);
-            fprintf(resultados, "\t\"solTime\": %lf,\n",     getTimeCounter(rank)->getTotalTime(totalOptSection));
-            fprintf(resultados, "\t\"parallelTime\": %lf,\n",getTimeCounter(rank)->getTotalTime(findMinimumSection));
-            fprintf(resultados, "\t\"serialTime\": %lf,\n",  getTimeCounter(rank)->getTotalTime(barrierSection));
-            fprintf(resultados, "\t\"swapTime\": %lf,\n",    getTimeCounter(rank)->getTotalTime(swapSection));
-            fprintf(resultados, "\t\"criticalTime\": %lf\n", getTimeCounter(rank)->getTotalTime(criticalSection));
+            fprintf(resultados, "\t\"solTime\": %lf,\n",     getTimeCounter(0)->getTotalTime(totalOptSection));
+            fprintf(resultados, "\t\"parallelTime\": %lf,\n",getTimeCounter(0)->getTotalTime(findMinimumSection));
+            fprintf(resultados, "\t\"serialTime\": %lf,\n",  getTimeCounter(0)->getTotalTime(barrierSection));
+            fprintf(resultados, "\t\"swapTime\": %lf,\n",    getTimeCounter(0)->getTotalTime(swapSection));
+            fprintf(resultados, "\t\"criticalTime\": %lf\n", getTimeCounter(0)->getTotalTime(criticalSection));
             if(rank != mpi_size - 1){
                 fprintf(resultados, "},\n");
             } else{
@@ -148,7 +150,6 @@ int main(int argc, char *argv[]){
         }
         MPI_Barrier(MPI_COMM_WORLD);
     }
-
 
 
     MPI_Finalize();

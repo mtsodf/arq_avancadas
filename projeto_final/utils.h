@@ -3,7 +3,7 @@
 #define UTILS_H
 
 #define SIZE_COUNTER 100
-#define MAX_THREADS  16
+#define MAX_THREADS  20
 
 //Medicao de Tempo
 double get_clock_sec( void );
@@ -29,7 +29,7 @@ void getRunId(char* run_id);
 class TimeCounter{
     public:
 
-        char sectionsNames[SIZE_COUNTER][30];
+        char sectionsNames[SIZE_COUNTER][100];
         double times[SIZE_COUNTER][2];
 
         int size;

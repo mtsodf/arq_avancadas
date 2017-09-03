@@ -1,4 +1,3 @@
-
 #include <sys/time.h>
 #include <time.h>
 #include "Path.h"
@@ -13,7 +12,7 @@ bool started = false;
 
 void initTimers(int rank){
 	TimeCounter *t = getTimeCounter(rank);
-
+    t->size = 0;
 	t->registerTimer("Inicializacao", initSection);
 	t->registerTimer("Achar Minimo", findMinimumSection);
 	t->registerTimer("Barreira", barrierSection);
@@ -135,5 +134,9 @@ double TimeCounter::getTotalTime(int id){
 }
 
 void getRunId(char* run_id){
-	sprintf(run_id, "%lu%lu%d", time(NULL), clock(), rand()%100);
+	struct timeval t;
+	struct timezone tz;
+	gettimeofday(&t,&tz);
+
+	sprintf(run_id, "%lu%lu%lu%d", time(NULL), clock(), rand()%100, t.tv_usec);
 }
