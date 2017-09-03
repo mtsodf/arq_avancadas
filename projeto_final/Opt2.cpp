@@ -279,7 +279,6 @@ bool Opt2::solveMPI(Path *path, bool log, int* iters, double *times, bool logAll
 
     do{
         findMiniMinjMPI(path, &mini, &minj, &minchange);
-        //if(rank == 0) printf("%5d MINCHANGE = %10lf (%5d, %5d)\n", *iters, minchange, mini, minj);
 
         getTimeCounter(0)->startTimer(swapSection);
         if(minchange < epsilon)  path->swapTotal(mini+1, minj);
