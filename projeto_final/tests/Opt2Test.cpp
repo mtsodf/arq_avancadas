@@ -7,7 +7,6 @@
 #include <math.h>
 #include <omp.h>
 #include "Opt2.h"
-#include "AnnealingStealing.h"
 #include "utils.h"
 
 using namespace std;

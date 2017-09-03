@@ -7,7 +7,6 @@
 #include <math.h>
 #include <omp.h>
 #include "Opt2.h"
-#include "AnnealingStealing.h"
 #include "utils.h"
 #include <mpi.h>
 
@@ -123,7 +122,7 @@ int main(int argc, char *argv[]){
     fprintf(resultados, "]\n");
     fprintf(resultados, "}\n");
     fclose(resultados);
-   
+
 
 
 }
