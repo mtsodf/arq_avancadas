@@ -1,0 +1,16 @@
+{
+"id": 15043904971941000066686413,
+"file": "../../ALL_tsp/pr1002.tsp",
+"type": "MPI",
+"size": 1,
+"run": [
+{
+	"rank": 0,
+	"solTime": 19380.669189,
+	"parallelTime": 19361.889404,
+	"serialTime": 18.423096,
+	"swapTime": 17.695068,
+	"criticalTime": 0.000000
+}
+]
+}

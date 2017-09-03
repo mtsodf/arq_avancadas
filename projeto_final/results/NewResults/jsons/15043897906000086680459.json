@@ -1,0 +1,40 @@
+{
+"id": 15043897906000086680459,
+"file": "../../ALL_tsp/att48.tsp",
+"type": "MPI",
+"size": 4,
+"run": [
+{
+	"rank": 0,
+	"solTime": 1.863037,
+	"parallelTime": 0.997070,
+	"serialTime": 0.840088,
+	"swapTime": 0.088135,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 1,
+	"solTime": 1.864990,
+	"parallelTime": 0.954346,
+	"serialTime": 0.880127,
+	"swapTime": 0.079346,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 2,
+	"solTime": 1.867188,
+	"parallelTime": 0.938232,
+	"serialTime": 0.905762,
+	"swapTime": 0.087158,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 3,
+	"solTime": 1.868164,
+	"parallelTime": 0.888184,
+	"serialTime": 0.953125,
+	"swapTime": 0.089355,
+	"criticalTime": 0.000000
+}
+]
+}

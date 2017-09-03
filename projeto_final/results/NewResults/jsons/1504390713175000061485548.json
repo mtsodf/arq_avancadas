@@ -1,0 +1,16 @@
+{
+"id": 1504390713175000061485548,
+"file": "../../ALL_tsp/pcb442.tsp",
+"type": "MPI",
+"size": 1,
+"run": [
+{
+	"rank": 0,
+	"solTime": 1717.085205,
+	"parallelTime": 1712.865723,
+	"serialTime": 4.062256,
+	"swapTime": 3.766357,
+	"criticalTime": 0.000000
+}
+]
+}

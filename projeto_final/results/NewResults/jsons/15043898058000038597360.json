@@ -1,0 +1,16 @@
+{
+"id": 15043898058000038597360,
+"file": "../../ALL_tsp/rd100.tsp",
+"type": "MPI",
+"size": 1,
+"run": [
+{
+	"rank": 0,
+	"solTime": 35.635010,
+	"parallelTime": 35.166016,
+	"serialTime": 0.437500,
+	"swapTime": 0.335449,
+	"criticalTime": 0.000000
+}
+]
+}

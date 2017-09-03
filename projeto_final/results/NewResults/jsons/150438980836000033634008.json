@@ -1,0 +1,136 @@
+{
+"id": 150438980836000033634008,
+"file": "../../ALL_tsp/rd100.tsp",
+"type": "OpenMP",
+"size": 16,
+"run": [
+{
+	"rank": 0,
+	"solTime": 5.132080,
+	"parallelTime": 2.743164,
+	"serialTime": 2.338135,
+	"swapTime": 0.431396,
+	"criticalTime": 0.388428
+},
+{
+	"rank": 1,
+	"solTime": 0.000000,
+	"parallelTime": 2.668701,
+	"serialTime": 2.413574,
+	"swapTime": 0.015869,
+	"criticalTime": 0.531006
+},
+{
+	"rank": 2,
+	"solTime": 0.000000,
+	"parallelTime": 2.636475,
+	"serialTime": 2.438965,
+	"swapTime": 0.013672,
+	"criticalTime": 0.525146
+},
+{
+	"rank": 3,
+	"solTime": 0.000000,
+	"parallelTime": 2.581055,
+	"serialTime": 2.503418,
+	"swapTime": 0.020508,
+	"criticalTime": 0.501221
+},
+{
+	"rank": 4,
+	"solTime": 0.000000,
+	"parallelTime": 2.541260,
+	"serialTime": 2.554688,
+	"swapTime": 0.013672,
+	"criticalTime": 0.499268
+},
+{
+	"rank": 5,
+	"solTime": 0.000000,
+	"parallelTime": 2.483643,
+	"serialTime": 2.605713,
+	"swapTime": 0.006836,
+	"criticalTime": 0.476807
+},
+{
+	"rank": 6,
+	"solTime": 0.000000,
+	"parallelTime": 2.440430,
+	"serialTime": 2.638916,
+	"swapTime": 0.016846,
+	"criticalTime": 0.431641
+},
+{
+	"rank": 7,
+	"solTime": 0.000000,
+	"parallelTime": 2.407715,
+	"serialTime": 1.601562,
+	"swapTime": 0.012939,
+	"criticalTime": 0.281494
+},
+{
+	"rank": 8,
+	"solTime": 0.000000,
+	"parallelTime": 2.361816,
+	"serialTime": 2.729248,
+	"swapTime": 0.025391,
+	"criticalTime": 0.378662
+},
+{
+	"rank": 9,
+	"solTime": 0.000000,
+	"parallelTime": 2.314941,
+	"serialTime": 2.781250,
+	"swapTime": 0.009033,
+	"criticalTime": 0.362793
+},
+{
+	"rank": 10,
+	"solTime": 0.000000,
+	"parallelTime": 2.269531,
+	"serialTime": 2.816895,
+	"swapTime": 0.024658,
+	"criticalTime": 0.302979
+},
+{
+	"rank": 11,
+	"solTime": 0.000000,
+	"parallelTime": 2.233154,
+	"serialTime": 2.854248,
+	"swapTime": 0.014893,
+	"criticalTime": 0.188232
+},
+{
+	"rank": 12,
+	"solTime": 0.000000,
+	"parallelTime": 2.214844,
+	"serialTime": 2.844238,
+	"swapTime": 0.007812,
+	"criticalTime": 0.256104
+},
+{
+	"rank": 13,
+	"solTime": 0.000000,
+	"parallelTime": 2.162842,
+	"serialTime": 2.912354,
+	"swapTime": 0.011719,
+	"criticalTime": 0.150391
+},
+{
+	"rank": 14,
+	"solTime": 0.000000,
+	"parallelTime": 2.117920,
+	"serialTime": 2.951172,
+	"swapTime": 0.003906,
+	"criticalTime": 0.131836
+},
+{
+	"rank": 15,
+	"solTime": 0.000000,
+	"parallelTime": 2.094238,
+	"serialTime": 2.978760,
+	"swapTime": 0.029297,
+	"criticalTime": 0.227295
+}
+]
+}

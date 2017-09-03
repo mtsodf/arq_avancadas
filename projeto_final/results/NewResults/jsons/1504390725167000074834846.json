@@ -1,0 +1,16 @@
+{
+"id": 1504390725167000074834846,
+"file": "../../ALL_tsp/pcb442.tsp",
+"type": "OpenMP",
+"size": 1,
+"run": [
+{
+	"rank": 0,
+	"solTime": 1671.341064,
+	"parallelTime": 1667.458008,
+	"serialTime": 3.833008,
+	"swapTime": 3.700928,
+	"criticalTime": 0.072998
+}
+]
+}

@@ -1,0 +1,72 @@
+{
+"id": 1504390699277000094482156,
+"file": "../../ALL_tsp/pcb442.tsp",
+"type": "OpenMP",
+"size": 8,
+"run": [
+{
+	"rank": 0,
+	"solTime": 343.908936,
+	"parallelTime": 326.521973,
+	"serialTime": 17.262695,
+	"swapTime": 6.203125,
+	"criticalTime": 0.219727
+},
+{
+	"rank": 1,
+	"solTime": 0.000000,
+	"parallelTime": 334.275391,
+	"serialTime": 9.475342,
+	"swapTime": 0.270752,
+	"criticalTime": 0.208496
+},
+{
+	"rank": 2,
+	"solTime": 0.000000,
+	"parallelTime": 332.822021,
+	"serialTime": 10.967285,
+	"swapTime": 0.105957,
+	"criticalTime": 0.227295
+},
+{
+	"rank": 3,
+	"solTime": 0.000000,
+	"parallelTime": 331.736816,
+	"serialTime": 12.023438,
+	"swapTime": 0.110596,
+	"criticalTime": 0.439453
+},
+{
+	"rank": 4,
+	"solTime": 0.000000,
+	"parallelTime": 321.407227,
+	"serialTime": 22.387939,
+	"swapTime": 0.027588,
+	"criticalTime": 0.749023
+},
+{
+	"rank": 5,
+	"solTime": 0.000000,
+	"parallelTime": 319.441895,
+	"serialTime": 24.352783,
+	"swapTime": 0.024658,
+	"criticalTime": 1.448486
+},
+{
+	"rank": 6,
+	"solTime": 0.000000,
+	"parallelTime": 327.189697,
+	"serialTime": 16.593506,
+	"swapTime": 0.083496,
+	"criticalTime": 1.871826
+},
+{
+	"rank": 7,
+	"solTime": 0.000000,
+	"parallelTime": 316.621094,
+	"serialTime": 27.166016,
+	"swapTime": 0.031982,
+	"criticalTime": 3.387939
+}
+]
+}

@@ -1,0 +1,40 @@
+{
+"id": 15043901462050000098416621,
+"file": "../../ALL_tsp/pr1002.tsp",
+"type": "OpenMP",
+"size": 4,
+"run": [
+{
+	"rank": 0,
+	"solTime": 5119.977051,
+	"parallelTime": 5081.832520,
+	"serialTime": 38.014648,
+	"swapTime": 19.718750,
+	"criticalTime": 0.479248
+},
+{
+	"rank": 1,
+	"solTime": 0.000000,
+	"parallelTime": 5087.831299,
+	"serialTime": 31.882324,
+	"swapTime": 0.199707,
+	"criticalTime": 0.324219
+},
+{
+	"rank": 2,
+	"solTime": 0.000000,
+	"parallelTime": 5078.332764,
+	"serialTime": 41.408691,
+	"swapTime": 0.333740,
+	"criticalTime": 2.040039
+},
+{
+	"rank": 3,
+	"solTime": 0.000000,
+	"parallelTime": 5058.677979,
+	"serialTime": 61.170410,
+	"swapTime": 0.046143,
+	"criticalTime": 7.532715
+}
+]
+}

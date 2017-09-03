@@ -1,0 +1,40 @@
+{
+"id": 150439066623900008709179,
+"file": "../../ALL_tsp/pcb442.tsp",
+"type": "OpenMP",
+"size": 4,
+"run": [
+{
+	"rank": 0,
+	"solTime": 595.368896,
+	"parallelTime": 521.790039,
+	"serialTime": 73.500732,
+	"swapTime": 5.276367,
+	"criticalTime": 0.237793
+},
+{
+	"rank": 1,
+	"solTime": 0.000000,
+	"parallelTime": 586.208496,
+	"serialTime": 8.967773,
+	"swapTime": 0.156982,
+	"criticalTime": 0.504150
+},
+{
+	"rank": 2,
+	"solTime": 0.000000,
+	"parallelTime": 584.358643,
+	"serialTime": 10.867920,
+	"swapTime": 0.143799,
+	"criticalTime": 1.531250
+},
+{
+	"rank": 3,
+	"solTime": 0.000000,
+	"parallelTime": 515.645020,
+	"serialTime": 79.655029,
+	"swapTime": 0.028320,
+	"criticalTime": 3.512939
+}
+]
+}

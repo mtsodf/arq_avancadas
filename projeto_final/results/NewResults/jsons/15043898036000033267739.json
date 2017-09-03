@@ -1,0 +1,40 @@
+{
+"id": 15043898036000033267739,
+"file": "../../ALL_tsp/rd100.tsp",
+"type": "MPI",
+"size": 4,
+"run": [
+{
+	"rank": 0,
+	"solTime": 11.583008,
+	"parallelTime": 9.708496,
+	"serialTime": 1.835205,
+	"swapTime": 0.368896,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 1,
+	"solTime": 11.581055,
+	"parallelTime": 9.489258,
+	"serialTime": 2.052734,
+	"swapTime": 0.370361,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 2,
+	"solTime": 11.582031,
+	"parallelTime": 9.337646,
+	"serialTime": 2.203613,
+	"swapTime": 0.374023,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 3,
+	"solTime": 11.591064,
+	"parallelTime": 9.104736,
+	"serialTime": 2.443604,
+	"swapTime": 0.364502,
+	"criticalTime": 0.000000
+}
+]
+}

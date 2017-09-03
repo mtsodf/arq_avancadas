@@ -1,0 +1,40 @@
+{
+"id": 15043906875900009016558,
+"file": "../../ALL_tsp/pcb442.tsp",
+"type": "MPI",
+"size": 4,
+"run": [
+{
+	"rank": 0,
+	"solTime": 530.241943,
+	"parallelTime": 520.214111,
+	"serialTime": 9.848877,
+	"swapTime": 4.473877,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 1,
+	"solTime": 530.245117,
+	"parallelTime": 516.939453,
+	"serialTime": 13.175049,
+	"swapTime": 4.452637,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 2,
+	"solTime": 530.249023,
+	"parallelTime": 517.543213,
+	"serialTime": 12.541748,
+	"swapTime": 4.452393,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 3,
+	"solTime": 530.246094,
+	"parallelTime": 512.774170,
+	"serialTime": 17.335205,
+	"swapTime": 4.446777,
+	"criticalTime": 0.000000
+}
+]
+}

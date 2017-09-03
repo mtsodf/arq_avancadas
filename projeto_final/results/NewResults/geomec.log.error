@@ -1,0 +1,10 @@
++ umask 002
++ _JOBID=1993730.s6506cl500
++ _USER=bho6
++ _JOBNAME=qsub_1000.sh
++ _RESOURCE=neednodes=1:ppn=16,nodes=1:ppn=16
++ _QUEUE=bigmem
++ echo neednodes=1:ppn=16,nodes=1:ppn=16
++ grep -vq ECLIPSE
++ echo 'Não é uma rodada Eclipse. Saindo...'
++ exit 0

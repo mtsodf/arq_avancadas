@@ -1,0 +1,40 @@
+{
+"id": 15043898095000059843997,
+"file": "../../ALL_tsp/rd100.tsp",
+"type": "OpenMP",
+"size": 4,
+"run": [
+{
+	"rank": 0,
+	"solTime": 11.245117,
+	"parallelTime": 10.390137,
+	"serialTime": 0.808594,
+	"swapTime": 0.433838,
+	"criticalTime": 0.093750
+},
+{
+	"rank": 1,
+	"solTime": 0.000000,
+	"parallelTime": 10.221191,
+	"serialTime": 0.967773,
+	"swapTime": 0.014893,
+	"criticalTime": 0.088135
+},
+{
+	"rank": 2,
+	"solTime": 0.000000,
+	"parallelTime": 10.051514,
+	"serialTime": 1.133057,
+	"swapTime": 0.026611,
+	"criticalTime": 0.105957
+},
+{
+	"rank": 3,
+	"solTime": 0.000000,
+	"parallelTime": 9.893555,
+	"serialTime": 1.314941,
+	"swapTime": 0.006836,
+	"criticalTime": 0.130859
+}
+]
+}
