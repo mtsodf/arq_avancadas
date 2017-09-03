@@ -35,12 +35,7 @@ TEST(Opt2, SolveTest_48){
     }
 
 
-    printf("rand 1 %d\n", rand());
-    //printf("rand 2 %d\n", rand());
-    //printf("rand 3 %d\n", rand());
-
     cities_sol = readSolution("../../ALL_tsp/att48.opt.tour", cities, cities.size());
-
 
     Path *path_sol = new Path(cities_sol);
 
@@ -52,8 +47,9 @@ TEST(Opt2, SolveTest_48){
 
     Opt2* opt2Solve = new Opt2(path);
 
+    int iters;
     start_time = get_clock_msec();
-    opt2Solve->solve(opt2Solve->path, false);
+    opt2Solve->solveOpenMP(opt2Solve->path, false, &iters, false);
     end_time = get_clock_msec();
 
     printf("Tempo para conseguir solucao %f\n", end_time-start_time);
@@ -101,7 +97,8 @@ TEST(Opt2, SolveTest_200){
 
     Opt2* opt2Solve = new Opt2(path);
 
-    opt2Solve->solve(opt2Solve->path, false);
+    int iters;
+    opt2Solve->solveOpenMP(opt2Solve->path, false, &iters, false);
 
     printf("Solucao Calc %f\n", path->cost);
     printf("Solucao      %f\n", path_sol->cost);
@@ -144,8 +141,9 @@ TEST(Opt2, SolveTest_1379){
 
     Opt2* opt2Solve = new Opt2(path);
 
+    int iters;
     start_time = get_clock_msec();
-    opt2Solve->solve(opt2Solve->path, false);
+    opt2Solve->solveOpenMP(opt2Solve->path, false, &iters, false);
     end_time = get_clock_msec();
     printf("Tempo para conseguir solucao %f\n", end_time-start_time);
 
@@ -187,9 +185,9 @@ TEST(Opt2, SolveTest_442){
     path->scramble();
 
     Opt2* opt2Solve = new Opt2(path);
-
+    int iters;
     start_time = get_clock_msec();
-    opt2Solve->solve(opt2Solve->path, false);
+    opt2Solve->solveOpenMP(opt2Solve->path, false, &iters, false);
     end_time = get_clock_msec();
     printf("Tempo para conseguir solucao %f\n", end_time-start_time);
 
