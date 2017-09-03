@@ -43,12 +43,12 @@ int main(int argc, char *argv[]){
     cities = createCityVector(argv[1]);
 
     Path* path = new Path(cities);
-    path->scramble();
+    //path->scramble();
 
     Opt2* opt2Solver = new Opt2(path);
 
     getTimeCounter(0)->startTimer(totalOptSection);
-    opt2Solver->solveOpenMP(path, false, &iters, false);
+    opt2Solver->solveOpenMPWhitoutCritical(path, false, &iters, false);
     getTimeCounter(0)->endTimer(totalOptSection);
 
     char run_id[200];

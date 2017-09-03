@@ -53,7 +53,7 @@ TEST(Path, totalSwap){
   EXPECT_NEAR(path->cost, 8 + 4*sqrt(2), 1e-6);
 
   int mini, minj; double minchange;
-  findMiniMinjOpenMPNew(path, &mini, &minj, &minchange);
+  findMiniMinjOpenMP(path, &mini, &minj, &minchange);
 
   EXPECT_EQ(1, mini);
   EXPECT_EQ(4, minj);

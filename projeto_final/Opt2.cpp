@@ -6,7 +6,15 @@
 #include "utils.h"
 #define epsilon -1e-12
 
-void findMiniMinjOpenMPNew(Path* path, int *mini, int *minj, double* minchange){
+
+double minchanges[MAX_THREADS];
+int minis[MAX_THREADS], minjs[MAX_THREADS];
+
+Opt2::Opt2(Path* path){
+    this->path = path;
+}
+
+void findMiniMinjOpenMP(Path* path, int *mini, int *minj, double* minchange){
 
     int inext, jnext;
     double change;
@@ -51,11 +59,6 @@ void findMiniMinjOpenMPNew(Path* path, int *mini, int *minj, double* minchange){
 }
 
 
-Opt2::Opt2(Path* path){
-    this->path = path;
-}
-
-
 bool Opt2::solveOpenMP(Path* path, bool log, int *iters, bool logAllPaths){
 
     double minchange = 0.0;
@@ -70,7 +73,7 @@ bool Opt2::solveOpenMP(Path* path, bool log, int *iters, bool logAllPaths){
         num_threads = omp_get_num_threads();
         do{
 
-            findMiniMinjOpenMPNew(path, &mini, &minj, &minchange);
+            findMiniMinjOpenMP(path, &mini, &minj, &minchange);
 
             getTimeCounter(id)->startTimer(swapSection);
             if(id == 0)
@@ -109,8 +112,122 @@ bool Opt2::solveOpenMP(Path* path, bool log, int *iters, bool logAllPaths){
         getTimeCounter(i)->endTimer(endParallelSection, timeNow);
     }
 
+}
+
+
+void findMiniMinjOpenMPWhitoutCritical(Path* path, int *mini, int *minj, double* minchange){
+
+    int inext, jnext;
+    double change;
+    int mini_local, minj_local;
+    double minchange_local = 0.0, timeNow;
+
+
+
+    int id = omp_get_thread_num();
+    int num_threads = omp_get_num_threads();
+    getTimeCounter(id)->startTimer(findMinimumSection);
+
+
+    for(int i = id; i < path->size-2;i+=num_threads){
+        inext = (i+1)%(path->size);
+        for(int j = i+2; j < path->size; j++){
+            jnext = (j+1)%(path->size);
+            change = path->dist(i,j) + path->dist(inext, jnext) - path->dist(i,inext) - path->dist(j, jnext);
+            if(minchange_local > change){
+                minchange_local = change;
+                mini_local = i;
+                minj_local = j;
+            }
+        }
+    }
+
+    #pragma omp barrier
+    minchanges[id] = minchange_local;
+    minis[id] = mini_local;
+    minjs[id] = minj_local;
+    #pragma omp barrier
+
+    timeNow = get_clock_msec();
+    getTimeCounter(id)->endTimer(findMinimumSection, timeNow);
+
+    getTimeCounter(id)->startTimer(barrierSection, timeNow);
+
+
+
+    *minchange = minchanges[0];
+    *mini = minis[0];
+    *minj = minjs[0];
+    for (size_t i = 1; i < num_threads; i++)
+    {
+        if(minchanges[i] < *minchange){
+            *minchange = minchanges[i];
+            *mini = minis[i];
+            *minj = minjs[i];
+        }
+    }
 
 }
+
+
+bool Opt2::solveOpenMPWhitoutCritical(Path* path, bool log, int *iters, bool logAllPaths){
+
+
+    *iters = 0;
+    int num_threads;
+    int iters_private = 0;
+    #pragma omp parallel shared(path, num_threads) firstprivate(iters_private)
+    {
+        int id = omp_get_thread_num();
+        num_threads = omp_get_num_threads();
+        bool changed = false;
+        int mini, minj;
+        double minchange = 0.0;
+
+
+
+        #pragma omp single
+        {
+            copyPaths(num_threads);
+        }
+
+        iters_private = 0;
+
+        do{
+            //printf("PATHS VALUES (%d) %f\n", id, paths[id]->cost);
+            findMiniMinjOpenMPWhitoutCritical(paths[id], &mini, &minj, &minchange);
+
+            //printf("MINI MINJ (%d) %d %d\n", id, mini, minj);
+            getTimeCounter(id)->startTimer(swapSection);
+
+            if(minchange < epsilon) {
+                paths[id]->swapTotal(mini+1, minj);
+                changed = true;
+            } else{
+                changed = false;
+            }
+
+            iters_private++;
+            minchange = 0.0;
+
+            getTimeCounter(id)->endTimer(swapSection);
+            getTimeCounter(id)->endTimer(barrierSection);
+
+        } while(changed);
+
+        getTimeCounter(id)->startTimer(endParallelSection);
+    }
+
+    double timeNow = get_clock_msec();
+    for (size_t i = 0; i < num_threads; i++)
+    {
+        getTimeCounter(i)->endTimer(endParallelSection, timeNow);
+    }
+
+    *iters = iters_private;
+
+}
+
 
 void findMiniMinjMPI(Path* path, int *mini, int *minj, double* minchange){
 
@@ -159,6 +276,7 @@ void findMiniMinjMPI(Path* path, int *mini, int *minj, double* minchange){
     MPI_Bcast(minj, 1, MPI_INT, min_rank, MPI_COMM_WORLD);
 }
 
+
 bool Opt2::solveMPI(Path *path, bool log, int* iters, double *times, bool logAllPaths){
 
     double minchange = 0.0;
@@ -182,4 +300,12 @@ bool Opt2::solveMPI(Path *path, bool log, int* iters, double *times, bool logAll
         if((*iters)%100==0 && rank == 0) printf("Iteracao %d. Custo %lf. %d %d\n", *iters, path->cost, mini, minj);
     } while(minchange < epsilon);
 
+}
+
+
+void Opt2::copyPaths(int qtd){
+    for (size_t i = 0; i < qtd; i++)
+    {
+        paths[i] = path->copy();
+    }
 }
