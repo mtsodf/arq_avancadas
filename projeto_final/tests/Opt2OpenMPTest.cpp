@@ -43,7 +43,7 @@ int main(int argc, char *argv[]){
     cities = createCityVector(argv[1]);
 
     Path* path = new Path(cities);
-    //path->scramble();
+    path->scramble();
 
     Opt2* opt2Solver = new Opt2(path);
 
