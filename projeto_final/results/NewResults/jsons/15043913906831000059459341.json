@@ -1,0 +1,40 @@
+{
+"id": 15043913906831000059459341,
+"file": "../../ALL_tsp/pr2392.tsp",
+"type": "MPI",
+"size": 4,
+"run": [
+{
+	"rank": 0,
+	"solTime": 68245.586182,
+	"parallelTime": 68091.760742,
+	"serialTime": 152.780273,
+	"swapTime": 104.731934,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 1,
+	"solTime": 68245.585938,
+	"parallelTime": 67996.147705,
+	"serialTime": 248.566162,
+	"swapTime": 104.549805,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 2,
+	"solTime": 68245.582031,
+	"parallelTime": 67356.665283,
+	"serialTime": 887.991211,
+	"swapTime": 103.784424,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 3,
+	"solTime": 68245.586914,
+	"parallelTime": 67233.452393,
+	"serialTime": 1011.025879,
+	"swapTime": 104.108154,
+	"criticalTime": 0.000000
+}
+]
+}

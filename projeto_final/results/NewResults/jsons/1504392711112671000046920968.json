@@ -1,0 +1,40 @@
+{
+"id": 1504392711112671000046920968,
+"file": "../../ALL_tsp/rl5915.tsp",
+"type": "MPI",
+"size": 4,
+"run": [
+{
+	"rank": 0,
+	"solTime": 1126398.568115,
+	"parallelTime": 1122504.520264,
+	"serialTime": 3888.077637,
+	"swapTime": 711.606934,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 1,
+	"solTime": 1126398.575195,
+	"parallelTime": 1117394.260498,
+	"serialTime": 8999.286865,
+	"swapTime": 711.975342,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 2,
+	"solTime": 1126398.578125,
+	"parallelTime": 1117530.333252,
+	"serialTime": 8863.400635,
+	"swapTime": 711.862061,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 3,
+	"solTime": 1126398.578125,
+	"parallelTime": 1109390.816406,
+	"serialTime": 17002.816406,
+	"swapTime": 708.428711,
+	"criticalTime": 0.000000
+}
+]
+}

@@ -1,0 +1,40 @@
+{
+"id": 150439147031892000067311988,
+"file": "../../ALL_tsp/pr2392.tsp",
+"type": "OpenMP",
+"size": 4,
+"run": [
+{
+	"rank": 0,
+	"solTime": 79709.613037,
+	"parallelTime": 79570.201660,
+	"serialTime": 138.875000,
+	"swapTime": 116.498291,
+	"criticalTime": 1.249756
+},
+{
+	"rank": 1,
+	"solTime": 0.000000,
+	"parallelTime": 70723.441650,
+	"serialTime": 8985.449463,
+	"swapTime": 0.153809,
+	"criticalTime": 4.909180
+},
+{
+	"rank": 2,
+	"solTime": 0.000000,
+	"parallelTime": 70501.396973,
+	"serialTime": 9207.533447,
+	"swapTime": 4.461914,
+	"criticalTime": 2.161621
+},
+{
+	"rank": 3,
+	"solTime": 0.000000,
+	"parallelTime": 70459.668213,
+	"serialTime": 9249.240723,
+	"swapTime": 3.293945,
+	"criticalTime": 10.274902
+}
+]
+}
