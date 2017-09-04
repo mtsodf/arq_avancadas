@@ -4,8 +4,10 @@ target_link_libraries(PathTest gtest_main TSP_LIB)
 configure_file(ler_out.py ler_out.py COPYONLY)
 
 configure_file(qsub_mpi.sh qsub_mpi.sh COPYONLY)
-
 configure_file(qsub_mpi_2nos.sh qsub_mpi_2nos.sh COPYONLY)
+configure_file(qsub_openmp.sh qsub_openmp.sh COPYONLY)
+
+
 
 add_executable(Opt2Test Opt2Test.cpp)
 target_link_libraries(Opt2Test gtest_main TSP_LIB)
