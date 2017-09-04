@@ -229,6 +229,134 @@ bool Opt2::solveOpenMPWhitoutCritical(Path* path, bool log, int *iters, bool log
 }
 
 
+
+void findMiniMinjOpenMPStatic(Path* path, int *mini, int *minj, double* minchange){
+
+    *minchange = 0.0;
+
+    #pragma omp parallel
+    {
+        int mini_local, minj_local;
+        double minchange_local = 0.0;
+        int inext, jnext;
+        double change;
+        int id = omp_get_thread_num();
+        int num_threads = omp_get_num_threads();
+
+        getTimeCounter(id)->startTimer(findMinimumSection);
+        #pragma omp for schedule(static) nowait
+        for(int i = 0; i < path->size-2;i++){
+            inext = (i+1)%(path->size);
+            for(int j = i+2; j < path->size; j++){
+                jnext = (j+1)%(path->size);
+                change = path->dist(i,j) + path->dist(inext, jnext) - path->dist(i,inext) - path->dist(j, jnext);
+                if(minchange_local > change){
+                    minchange_local = change;
+                    mini_local = i;
+                    minj_local = j;
+                }
+            }
+        }
+        getTimeCounter(id)->endStartTimer(findMinimumSection, barrierSection);
+        getTimeCounter(id)->startTimer(criticalSection);
+        #pragma omp critical
+        {
+            if(minchange_local < *minchange){
+                *minchange = minchange_local;
+                *mini = mini_local;
+                *minj = minj_local;
+            }
+        }
+
+    }
+}
+
+
+bool Opt2::solveOpenMPStatic(Path* path, bool log, int *iters, bool logAllPaths){
+
+    double minchange = 0.0;
+    int mini, minj;
+    *iters = 0;
+
+    do{
+
+        findMiniMinjOpenMPStatic(path, &mini, &minj, &minchange);
+
+        getTimeCounter(0)->startTimer(swapSection);
+        if(minchange < epsilon)  path->swapTotal(mini+1, minj);
+        getTimeCounter(0)->endTimer(swapSection);
+        getTimeCounter(0)->endTimer(barrierSection);
+
+        (*iters)++;
+
+    } while(minchange < epsilon);
+
+}
+
+
+void findMiniMinjOpenMPDynamic(Path* path, int *mini, int *minj, double* minchange){
+
+    *minchange = 0.0;
+
+    #pragma omp parallel
+    {
+        int mini_local, minj_local;
+        double minchange_local = 0.0;
+        int inext, jnext;
+        double change;
+        int id = omp_get_thread_num();
+        int num_threads = omp_get_num_threads();
+
+        getTimeCounter(id)->startTimer(findMinimumSection);
+        #pragma omp for schedule(dynamic, 10) nowait
+        for(int i = 0; i < path->size-2;i++){
+            inext = (i+1)%(path->size);
+            for(int j = i+2; j < path->size; j++){
+                jnext = (j+1)%(path->size);
+                change = path->dist(i,j) + path->dist(inext, jnext) - path->dist(i,inext) - path->dist(j, jnext);
+                if(minchange_local > change){
+                    minchange_local = change;
+                    mini_local = i;
+                    minj_local = j;
+                }
+            }
+        }
+        getTimeCounter(id)->endStartTimer(findMinimumSection, barrierSection);
+        getTimeCounter(id)->startTimer(criticalSection);
+        #pragma omp critical
+        {
+            if(minchange_local < *minchange){
+                *minchange = minchange_local;
+                *mini = mini_local;
+                *minj = minj_local;
+            }
+        }
+
+    }
+}
+
+
+bool Opt2::solveOpenMPDynamic(Path* path, bool log, int *iters, bool logAllPaths){
+
+    double minchange = 0.0;
+    int mini, minj;
+    *iters = 0;
+
+    do{
+
+        findMiniMinjOpenMPDynamic(path, &mini, &minj, &minchange);
+
+        getTimeCounter(0)->startTimer(swapSection);
+        if(minchange < epsilon)  path->swapTotal(mini+1, minj);
+        getTimeCounter(0)->endTimer(swapSection);
+        getTimeCounter(0)->endTimer(barrierSection);
+
+        (*iters)++;
+
+    } while(minchange < epsilon);
+
+}
+
 void findMiniMinjMPI(Path* path, int *mini, int *minj, double* minchange){
 
     *minchange = 0.0;

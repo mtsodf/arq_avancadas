@@ -48,7 +48,7 @@ int main(int argc, char *argv[]){
     Opt2* opt2Solver = new Opt2(path);
 
     getTimeCounter(0)->startTimer(totalOptSection);
-    opt2Solver->solveOpenMP(path, false, &iters, false);
+    opt2Solver->solveOpenMPStatic(path, false, &iters, false);
     getTimeCounter(0)->endTimer(totalOptSection);
 
     char run_id[200];
@@ -81,7 +81,7 @@ int main(int argc, char *argv[]){
 
 
     double cost_sol = path_sol==NULL? 0.0 : path_sol->cost;
-    fprintf(resultados, "%s; %s; OpenMP; %d; ", run_id, argv[1], num_threads);
+    fprintf(resultados, "%s; %s; OpenMPStatic; %d; ", run_id, argv[1], num_threads);
     fprintf(resultados, "%lf; ", getTimeCounter(0)->getTotalTime(totalOptSection));
     fprintf(resultados, "%lf; ", getTimeCounter(0)->getTotalTime(findMinimumSection));
     fprintf(resultados, "%lf; ", getTimeCounter(0)->getTotalTime(barrierSection));

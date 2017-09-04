@@ -16,6 +16,13 @@ target_link_libraries(Opt2MPITest gtest_main TSP_LIB)
 add_executable(Opt2OpenMPTest Opt2OpenMPTest.cpp)
 target_link_libraries(Opt2OpenMPTest gtest_main TSP_LIB)
 
+add_executable(Opt2OpenMPStaticTest Opt2OpenMPStaticTest.cpp)
+target_link_libraries(Opt2OpenMPStaticTest gtest_main TSP_LIB)
+
+
+add_executable(Opt2OpenMPDynamicTest Opt2OpenMPDynamicTest.cpp)
+target_link_libraries(Opt2OpenMPDynamicTest gtest_main TSP_LIB)
+
 
 add_test(PathTest ./PathTest)
 add_test(Opt2Test ./Opt2Test)

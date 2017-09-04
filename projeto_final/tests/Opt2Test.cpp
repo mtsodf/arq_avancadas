@@ -13,7 +13,7 @@ using namespace std;
 
 
 TEST(Opt2, SolveTest_48){
-    return;
+
     vector<City*> cities;
     vector<City*> cities_sol;
     double start_time, end_time;
@@ -61,6 +61,49 @@ TEST(Opt2, SolveTest_48){
     PrintPath("path.txt", path);
 
 }
+
+TEST(Opt2, SolveTest_48_2){
+
+    vector<City*> cities;
+    vector<City*> cities_sol;
+    double start_time, end_time;
+    int num_threads;
+    cities = createCityVector("../../ALL_tsp/att48.tsp");
+
+    #pragma omp parallel
+    #pragma omp single
+    {
+        num_threads = omp_get_num_threads();
+        printf("Rodando com %d threads\n", num_threads);
+
+    }
+
+    cities_sol = readSolution("../../ALL_tsp/att48.opt.tour", cities, cities.size());
+
+    Path *path_sol = new Path(cities_sol);
+
+    printf("Tamanho do caminho %d\n", cities.size());
+
+    Path* path = new Path(cities);
+
+    Opt2* opt2Solve = new Opt2(path);
+
+    int iters;
+    start_time = get_clock_msec();
+    opt2Solve->solveOpenMPStatic(opt2Solve->path, false, &iters, false);
+    end_time = get_clock_msec();
+
+    printf("Tempo para conseguir solucao %f\n", end_time-start_time);
+    printf("Solucao Calc %f\n", path->cost);
+    printf("Solucao      %f\n", path_sol->cost);
+
+    EXPECT_GT(path_sol->cost*1.10, path->cost);
+
+    PrintPath("path.txt", path);
+
+}
+
+
 
 TEST(Opt2, SolveTest_200){
     srand(time(NULL));

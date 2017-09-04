@@ -13,6 +13,8 @@ public:
     Path  *paths[MAX_THREADS];
     Opt2(Path*);
     bool solveOpenMPWhitoutCritical(Path* path, bool log, int *iters, bool logAllPaths);
+    bool solveOpenMPStatic(Path* path, bool log, int *iters, bool logAllPaths);
+    bool solveOpenMPDynamic(Path* path, bool log, int *iters, bool logAllPaths);
     bool solveOpenMP(Path* path, bool log, int *iters,  bool logAllPaths);
     bool solveMPI(Path *path, bool log, int* iters, double *times, bool logAllPaths);
     void copyPaths(int qtd);
