@@ -1,0 +1,776 @@
+{
+"id": 1504445294425000041947612,
+"file": "../../ALL_tsp/pr2392.tsp",
+"type": "MPI",
+"size": 96,
+"run": [
+{
+	"rank": 0,
+	"solTime": 7612.413086,
+	"parallelTime": 3332.016602,
+	"serialTime": 4276.196289,
+	"swapTime": 121.450684,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 1,
+	"solTime": 7612.406006,
+	"parallelTime": 3336.571289,
+	"serialTime": 4272.582275,
+	"swapTime": 120.920898,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 2,
+	"solTime": 7612.404785,
+	"parallelTime": 3321.022217,
+	"serialTime": 4288.100098,
+	"swapTime": 121.006348,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 3,
+	"solTime": 7612.404053,
+	"parallelTime": 3315.463623,
+	"serialTime": 4293.688965,
+	"swapTime": 121.131348,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 4,
+	"solTime": 7612.421143,
+	"parallelTime": 3311.457520,
+	"serialTime": 4297.656494,
+	"swapTime": 122.058350,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 5,
+	"solTime": 7612.412842,
+	"parallelTime": 3308.674805,
+	"serialTime": 4300.503906,
+	"swapTime": 120.768799,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 6,
+	"solTime": 7612.415039,
+	"parallelTime": 3306.759277,
+	"serialTime": 4302.430664,
+	"swapTime": 120.891357,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 7,
+	"solTime": 7612.417969,
+	"parallelTime": 3307.731201,
+	"serialTime": 4301.371826,
+	"swapTime": 120.746582,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 8,
+	"solTime": 7612.432129,
+	"parallelTime": 3342.993652,
+	"serialTime": 4266.212402,
+	"swapTime": 122.095947,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 9,
+	"solTime": 7612.420898,
+	"parallelTime": 3340.933350,
+	"serialTime": 4268.059570,
+	"swapTime": 122.295898,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 10,
+	"solTime": 7612.433838,
+	"parallelTime": 3329.674316,
+	"serialTime": 4279.512695,
+	"swapTime": 122.551758,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 11,
+	"solTime": 7612.424805,
+	"parallelTime": 3327.726318,
+	"serialTime": 4281.246582,
+	"swapTime": 122.393311,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 12,
+	"solTime": 7612.425049,
+	"parallelTime": 3336.986084,
+	"serialTime": 4272.041016,
+	"swapTime": 123.557129,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 13,
+	"solTime": 7612.430908,
+	"parallelTime": 3320.815186,
+	"serialTime": 4288.280029,
+	"swapTime": 122.284912,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 14,
+	"solTime": 7612.431885,
+	"parallelTime": 3319.833740,
+	"serialTime": 4289.321777,
+	"swapTime": 122.067139,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 15,
+	"solTime": 7612.439941,
+	"parallelTime": 3316.275635,
+	"serialTime": 4292.619873,
+	"swapTime": 122.224121,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 16,
+	"solTime": 7612.439941,
+	"parallelTime": 3282.587158,
+	"serialTime": 4325.892334,
+	"swapTime": 121.056641,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 17,
+	"solTime": 7612.437012,
+	"parallelTime": 3280.883789,
+	"serialTime": 4328.393311,
+	"swapTime": 121.075684,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 18,
+	"solTime": 7612.440186,
+	"parallelTime": 3279.390869,
+	"serialTime": 4329.694580,
+	"swapTime": 121.549805,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 19,
+	"solTime": 7612.435059,
+	"parallelTime": 3268.203613,
+	"serialTime": 4340.897949,
+	"swapTime": 121.343506,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 20,
+	"solTime": 7612.446045,
+	"parallelTime": 3280.414062,
+	"serialTime": 4328.689209,
+	"swapTime": 120.876953,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 21,
+	"solTime": 7612.439941,
+	"parallelTime": 3264.168213,
+	"serialTime": 4345.106689,
+	"swapTime": 121.061523,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 22,
+	"solTime": 7612.446777,
+	"parallelTime": 3264.568115,
+	"serialTime": 4344.745850,
+	"swapTime": 121.056396,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 23,
+	"solTime": 7612.445068,
+	"parallelTime": 3263.067627,
+	"serialTime": 4346.143799,
+	"swapTime": 120.887451,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 24,
+	"solTime": 7612.451172,
+	"parallelTime": 3262.401123,
+	"serialTime": 4346.731201,
+	"swapTime": 120.871338,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 25,
+	"solTime": 7612.448975,
+	"parallelTime": 3258.857910,
+	"serialTime": 4350.341797,
+	"swapTime": 120.848633,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 26,
+	"solTime": 7612.449951,
+	"parallelTime": 3259.053467,
+	"serialTime": 4349.978027,
+	"swapTime": 120.794189,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 27,
+	"solTime": 7612.444824,
+	"parallelTime": 3249.417969,
+	"serialTime": 4359.653076,
+	"swapTime": 120.977295,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 28,
+	"solTime": 7612.453125,
+	"parallelTime": 3249.622314,
+	"serialTime": 4359.440186,
+	"swapTime": 120.925049,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 29,
+	"solTime": 7612.451904,
+	"parallelTime": 3249.516357,
+	"serialTime": 4359.757324,
+	"swapTime": 120.950928,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 30,
+	"solTime": 7612.457031,
+	"parallelTime": 3244.114746,
+	"serialTime": 4364.924805,
+	"swapTime": 120.926025,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 31,
+	"solTime": 7612.453857,
+	"parallelTime": 3240.685059,
+	"serialTime": 4368.192871,
+	"swapTime": 121.027344,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 32,
+	"solTime": 7612.489014,
+	"parallelTime": 3219.752441,
+	"serialTime": 4389.847656,
+	"swapTime": 119.107422,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 33,
+	"solTime": 7612.473145,
+	"parallelTime": 3215.628662,
+	"serialTime": 4394.513184,
+	"swapTime": 118.441650,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 34,
+	"solTime": 7612.461182,
+	"parallelTime": 3212.263184,
+	"serialTime": 4397.871826,
+	"swapTime": 118.002197,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 35,
+	"solTime": 7612.467041,
+	"parallelTime": 3208.802979,
+	"serialTime": 4401.295654,
+	"swapTime": 118.675781,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 36,
+	"solTime": 7612.490967,
+	"parallelTime": 3206.575439,
+	"serialTime": 4403.555176,
+	"swapTime": 117.938721,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 37,
+	"solTime": 7612.490967,
+	"parallelTime": 3203.103760,
+	"serialTime": 4406.983398,
+	"swapTime": 118.022705,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 38,
+	"solTime": 7612.491943,
+	"parallelTime": 3201.488037,
+	"serialTime": 4408.594482,
+	"swapTime": 118.539551,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 39,
+	"solTime": 7612.488037,
+	"parallelTime": 3198.125732,
+	"serialTime": 4411.987793,
+	"swapTime": 118.021484,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 40,
+	"solTime": 7612.479004,
+	"parallelTime": 3201.284668,
+	"serialTime": 4408.697998,
+	"swapTime": 118.714111,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 41,
+	"solTime": 7612.468994,
+	"parallelTime": 3192.990967,
+	"serialTime": 4417.094482,
+	"swapTime": 117.986572,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 42,
+	"solTime": 7612.475098,
+	"parallelTime": 3189.520996,
+	"serialTime": 4420.585449,
+	"swapTime": 118.426758,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 43,
+	"solTime": 7612.483887,
+	"parallelTime": 3189.712402,
+	"serialTime": 4420.479736,
+	"swapTime": 118.116699,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 44,
+	"solTime": 7612.487061,
+	"parallelTime": 3186.967529,
+	"serialTime": 4423.273193,
+	"swapTime": 118.080566,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 45,
+	"solTime": 7612.479004,
+	"parallelTime": 3182.623779,
+	"serialTime": 4427.474609,
+	"swapTime": 118.189941,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 46,
+	"solTime": 7612.485840,
+	"parallelTime": 3180.896729,
+	"serialTime": 4429.303711,
+	"swapTime": 119.536377,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 47,
+	"solTime": 7612.484863,
+	"parallelTime": 3178.139648,
+	"serialTime": 4431.962891,
+	"swapTime": 118.737061,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 48,
+	"solTime": 7612.481934,
+	"parallelTime": 3172.522949,
+	"serialTime": 4435.996826,
+	"swapTime": 118.842773,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 49,
+	"solTime": 7612.472900,
+	"parallelTime": 3167.782227,
+	"serialTime": 4441.416748,
+	"swapTime": 117.087646,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 50,
+	"solTime": 7612.469971,
+	"parallelTime": 3162.312256,
+	"serialTime": 4446.959961,
+	"swapTime": 117.305420,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 51,
+	"solTime": 7612.468018,
+	"parallelTime": 3163.123291,
+	"serialTime": 4446.030762,
+	"swapTime": 117.613037,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 52,
+	"solTime": 7612.460938,
+	"parallelTime": 3160.672363,
+	"serialTime": 4448.904053,
+	"swapTime": 117.536377,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 53,
+	"solTime": 7612.460938,
+	"parallelTime": 3155.145508,
+	"serialTime": 4454.079834,
+	"swapTime": 117.352783,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 54,
+	"solTime": 7612.462891,
+	"parallelTime": 3156.068359,
+	"serialTime": 4453.542480,
+	"swapTime": 118.523438,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 55,
+	"solTime": 7612.464844,
+	"parallelTime": 3153.321289,
+	"serialTime": 4456.359131,
+	"swapTime": 117.453857,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 56,
+	"solTime": 7612.485840,
+	"parallelTime": 3157.152344,
+	"serialTime": 4452.717529,
+	"swapTime": 118.061768,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 57,
+	"solTime": 7612.485840,
+	"parallelTime": 3148.594971,
+	"serialTime": 4461.523926,
+	"swapTime": 117.917969,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 58,
+	"solTime": 7612.485840,
+	"parallelTime": 3144.999268,
+	"serialTime": 4465.262695,
+	"swapTime": 117.744629,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 59,
+	"solTime": 7612.468018,
+	"parallelTime": 3143.518066,
+	"serialTime": 4466.369385,
+	"swapTime": 118.135742,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 60,
+	"solTime": 7612.488037,
+	"parallelTime": 3140.065918,
+	"serialTime": 4470.137451,
+	"swapTime": 117.890869,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 61,
+	"solTime": 7612.468994,
+	"parallelTime": 3333.000977,
+	"serialTime": 4277.181641,
+	"swapTime": 117.956299,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 62,
+	"solTime": 7612.487061,
+	"parallelTime": 3135.985107,
+	"serialTime": 4474.199219,
+	"swapTime": 117.614014,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 63,
+	"solTime": 7612.468018,
+	"parallelTime": 3136.143555,
+	"serialTime": 4473.667236,
+	"swapTime": 117.882568,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 64,
+	"solTime": 7610.000977,
+	"parallelTime": 3160.707764,
+	"serialTime": 4445.556152,
+	"swapTime": 121.641113,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 65,
+	"solTime": 7609.994873,
+	"parallelTime": 3150.593994,
+	"serialTime": 4456.112305,
+	"swapTime": 120.958496,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 66,
+	"solTime": 7610.000000,
+	"parallelTime": 3148.404785,
+	"serialTime": 4458.316406,
+	"swapTime": 121.008301,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 67,
+	"solTime": 7609.961914,
+	"parallelTime": 3145.733398,
+	"serialTime": 4460.905273,
+	"swapTime": 120.915771,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 68,
+	"solTime": 7609.992920,
+	"parallelTime": 3142.158691,
+	"serialTime": 4464.418457,
+	"swapTime": 121.220703,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 69,
+	"solTime": 7609.992920,
+	"parallelTime": 3139.516846,
+	"serialTime": 4467.264893,
+	"swapTime": 120.690918,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 70,
+	"solTime": 7609.966797,
+	"parallelTime": 3331.451172,
+	"serialTime": 4275.139404,
+	"swapTime": 120.547119,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 71,
+	"solTime": 7609.945068,
+	"parallelTime": 3135.035156,
+	"serialTime": 4471.692139,
+	"swapTime": 120.545166,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 72,
+	"solTime": 7610.008057,
+	"parallelTime": 3163.580078,
+	"serialTime": 4443.121094,
+	"swapTime": 122.140869,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 73,
+	"solTime": 7609.948975,
+	"parallelTime": 3166.139893,
+	"serialTime": 4440.498535,
+	"swapTime": 122.340820,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 74,
+	"solTime": 7609.964844,
+	"parallelTime": 3157.426025,
+	"serialTime": 4449.339355,
+	"swapTime": 122.062500,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 75,
+	"solTime": 7610.089111,
+	"parallelTime": 3154.537598,
+	"serialTime": 4452.079590,
+	"swapTime": 122.368408,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 76,
+	"solTime": 7610.109863,
+	"parallelTime": 3155.282715,
+	"serialTime": 4451.540771,
+	"swapTime": 122.420654,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 77,
+	"solTime": 7610.094971,
+	"parallelTime": 3148.888428,
+	"serialTime": 4458.013672,
+	"swapTime": 122.127686,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 78,
+	"solTime": 7610.104980,
+	"parallelTime": 3144.794678,
+	"serialTime": 4461.984619,
+	"swapTime": 122.586914,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 79,
+	"solTime": 7610.095947,
+	"parallelTime": 3143.564453,
+	"serialTime": 4463.069580,
+	"swapTime": 122.648926,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 80,
+	"solTime": 7610.712158,
+	"parallelTime": 3106.427979,
+	"serialTime": 4500.667480,
+	"swapTime": 121.133057,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 81,
+	"solTime": 7610.691162,
+	"parallelTime": 3103.572510,
+	"serialTime": 4503.787598,
+	"swapTime": 120.524902,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 82,
+	"solTime": 7610.709961,
+	"parallelTime": 3103.838623,
+	"serialTime": 4503.501953,
+	"swapTime": 121.003174,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 83,
+	"solTime": 7610.693115,
+	"parallelTime": 3100.626709,
+	"serialTime": 4506.557129,
+	"swapTime": 120.595459,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 84,
+	"solTime": 7610.708984,
+	"parallelTime": 3096.236572,
+	"serialTime": 4511.181885,
+	"swapTime": 120.758057,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 85,
+	"solTime": 7610.712891,
+	"parallelTime": 3093.220703,
+	"serialTime": 4514.358398,
+	"swapTime": 120.716064,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 86,
+	"solTime": 7610.714111,
+	"parallelTime": 3092.372070,
+	"serialTime": 4515.119385,
+	"swapTime": 120.513672,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 87,
+	"solTime": 7610.713135,
+	"parallelTime": 3088.479004,
+	"serialTime": 4518.985352,
+	"swapTime": 120.471680,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 88,
+	"solTime": 7610.720947,
+	"parallelTime": 3090.877197,
+	"serialTime": 4516.557861,
+	"swapTime": 122.430664,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 89,
+	"solTime": 7610.712891,
+	"parallelTime": 3084.196289,
+	"serialTime": 4523.211182,
+	"swapTime": 120.829102,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 90,
+	"solTime": 7610.715820,
+	"parallelTime": 3081.925049,
+	"serialTime": 4525.490234,
+	"swapTime": 120.742432,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 91,
+	"solTime": 7610.717041,
+	"parallelTime": 3079.344971,
+	"serialTime": 4528.050781,
+	"swapTime": 120.781494,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 92,
+	"solTime": 7610.725098,
+	"parallelTime": 3076.441162,
+	"serialTime": 4530.921143,
+	"swapTime": 120.685547,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 93,
+	"solTime": 7610.716064,
+	"parallelTime": 3077.227295,
+	"serialTime": 4530.274902,
+	"swapTime": 120.895996,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 94,
+	"solTime": 7610.722900,
+	"parallelTime": 3073.017578,
+	"serialTime": 4534.391113,
+	"swapTime": 120.633057,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 95,
+	"solTime": 7610.714844,
+	"parallelTime": 3069.867188,
+	"serialTime": 4537.350586,
+	"swapTime": 120.874756,
+	"criticalTime": 0.000000
+}
+]
+}
