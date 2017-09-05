@@ -1,0 +1,40 @@
+{
+"id": 1504550693789299000050102025,
+"file": "../../ALL_tsp/rl5915.tsp",
+"type": "OpenMP",
+"size": 4,
+"run": [
+{
+	"rank": 0,
+	"solTime": 1972759.437012,
+	"parallelTime": 1971928.714355,
+	"serialTime": 791.063477,
+	"swapTime": 757.235107,
+	"criticalTime": 24.383301
+},
+{
+	"rank": 1,
+	"solTime": 0.000000,
+	"parallelTime": 1408738.577881,
+	"serialTime": 0.000000,
+	"swapTime": 0.000000,
+	"criticalTime": 28.326416
+},
+{
+	"rank": 2,
+	"solTime": 0.000000,
+	"parallelTime": 851027.436035,
+	"serialTime": 0.000000,
+	"swapTime": 0.000000,
+	"criticalTime": 39.248535
+},
+{
+	"rank": 3,
+	"solTime": 0.000000,
+	"parallelTime": 283258.552734,
+	"serialTime": 0.000000,
+	"swapTime": 0.000000,
+	"criticalTime": 61.881348
+}
+]
+}

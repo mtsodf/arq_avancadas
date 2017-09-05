@@ -1,0 +1,24 @@
+{
+"id": 15045307201000084191992,
+"file": "../../ALL_tsp/att48.tsp",
+"type": "OpenMP",
+"size": 2,
+"run": [
+{
+	"rank": 0,
+	"solTime": 2.588867,
+	"parallelTime": 2.257812,
+	"serialTime": 0.251709,
+	"swapTime": 0.098145,
+	"criticalTime": 0.065918
+},
+{
+	"rank": 1,
+	"solTime": 0.000000,
+	"parallelTime": 2.233154,
+	"serialTime": 0.000000,
+	"swapTime": 0.000000,
+	"criticalTime": 0.083496
+}
+]
+}

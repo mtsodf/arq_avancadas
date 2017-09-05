@@ -1,0 +1,72 @@
+{
+"id": 1504531625210300005351171,
+"file": "../../ALL_tsp/pr1002.tsp",
+"type": "OpenMP",
+"size": 8,
+"run": [
+{
+	"rank": 0,
+	"solTime": 2627.364014,
+	"parallelTime": 2596.178467,
+	"serialTime": 30.970947,
+	"swapTime": 20.346680,
+	"criticalTime": 0.301758
+},
+{
+	"rank": 1,
+	"solTime": 0.000000,
+	"parallelTime": 2588.860596,
+	"serialTime": 38.216064,
+	"swapTime": 0.221924,
+	"criticalTime": 0.185791
+},
+{
+	"rank": 2,
+	"solTime": 0.000000,
+	"parallelTime": 2584.939941,
+	"serialTime": 42.123291,
+	"swapTime": 0.248291,
+	"criticalTime": 0.302002
+},
+{
+	"rank": 3,
+	"solTime": 0.000000,
+	"parallelTime": 2580.646240,
+	"serialTime": 46.595947,
+	"swapTime": 0.046143,
+	"criticalTime": 0.471924
+},
+{
+	"rank": 4,
+	"solTime": 0.000000,
+	"parallelTime": 2579.021729,
+	"serialTime": 48.217285,
+	"swapTime": 0.052002,
+	"criticalTime": 0.609131
+},
+{
+	"rank": 5,
+	"solTime": 0.000000,
+	"parallelTime": 2574.339355,
+	"serialTime": 52.755127,
+	"swapTime": 0.174805,
+	"criticalTime": 1.520508
+},
+{
+	"rank": 6,
+	"solTime": 0.000000,
+	"parallelTime": 2568.535156,
+	"serialTime": 58.695557,
+	"swapTime": 0.054443,
+	"criticalTime": 3.903809
+},
+{
+	"rank": 7,
+	"solTime": 0.000000,
+	"parallelTime": 2565.233643,
+	"serialTime": 61.860840,
+	"swapTime": 0.155273,
+	"criticalTime": 4.423584
+}
+]
+}
