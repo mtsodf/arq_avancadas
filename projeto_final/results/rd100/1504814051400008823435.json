@@ -1,0 +1,16 @@
+{
+"id": 1504814051400008823435,
+"file": "../../ALL_tsp/rd100.tsp",
+"type": "OpenMP",
+"size": 1,
+"run": [
+{
+	"rank": 0,
+	"solTime": 41.077148,
+	"parallelTime": 40.482910,
+	"serialTime": 0.519775,
+	"swapTime": 0.419434,
+	"criticalTime": 0.045654
+}
+]
+}

@@ -1,0 +1,40 @@
+{
+"id": 1504834641507000027789706,
+"file": "../../ALL_tsp/pr1002.tsp",
+"type": "MPI",
+"size": 4,
+"run": [
+{
+	"rank": 0,
+	"solTime": 5007.531006,
+	"parallelTime": 4975.904541,
+	"serialTime": 31.279541,
+	"swapTime": 18.148682,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 1,
+	"solTime": 5007.531006,
+	"parallelTime": 4963.242676,
+	"serialTime": 44.067383,
+	"swapTime": 18.103027,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 2,
+	"solTime": 5007.532959,
+	"parallelTime": 4936.746338,
+	"serialTime": 70.532959,
+	"swapTime": 18.047852,
+	"criticalTime": 0.000000
+},
+{
+	"rank": 3,
+	"solTime": 5007.529053,
+	"parallelTime": 4917.990967,
+	"serialTime": 89.271484,
+	"swapTime": 18.045654,
+	"criticalTime": 0.000000
+}
+]
+}
